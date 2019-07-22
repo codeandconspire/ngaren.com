@@ -1,0 +1,8 @@
+{
+  "name": "Ngaren",
+  "short_name": "Ngaren",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}

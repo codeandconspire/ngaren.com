@@ -1,0 +1,72 @@
+@import "../global";
+
+/* @define utilities */
+.u-hidden {
+  display: none !important;
+}
+
+.u-hiddenVisually {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+}
+
+/**
+ * Display
+ */
+
+.u-block { display: block !important; }
+.u-inlineBlock { display: inline-block !important; }
+
+/**
+ * Centered page container
+ */
+
+.u-container,
+.u-md-container,
+.u-lg-container,
+.u-xl-container {
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--document-margin) !important;
+  padding-right: var(--document-margin) !important;
+  max-width: calc(var(--container-large-width) + (var(--document-margin) * 2)) !important
+}
+
+.u-large {
+  max-width: var(--container-large-width) !important;
+}
+
+.u-medium {
+  max-width: var(--container-medium-width) !important;
+}
+
+.u-small {
+  max-width: var(--container-small-width) !important;
+}
+
+@media (max-width: 599px) {
+  .u-md-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (max-width: 899px) {
+  .u-lg-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (max-width: 1199px) {
+  .u-xl-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
