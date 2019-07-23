@@ -8,17 +8,17 @@
  */
 
 @font-face {
-  font-family: "Temp";
+  font-family: "Font";
   font-style: normal;
   font-weight: bold;
-  src: url("./fonts/temp-bold.woff") format("woff");
+  src: url("./fonts/font-bold.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Temp";
+  font-family: "Font";
   font-style: normal;
   font-weight: normal;
-  src: url("./fonts/temp-regular.woff") format("woff");
+  src: url("./fonts/font-book.woff2") format("woff2");
 }
 
 /**
