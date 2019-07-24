@@ -3,16 +3,6 @@ module.exports = ui
 function ui (state, emitter) {
   state.ui = state.ui || {}
   state.ui.isLoading = false
-  state.ui.openNavigation = false
-
-  emitter.on('header:toggle', function (toggle) {
-    state.ui.openNavigation = toggle
-    emitter.emit('render')
-  })
-
-  emitter.prependListener('navigate', function () {
-    state.ui.openNavigation = false
-  })
 
   var requests = 0
   emitter.on('prismic:request', start)

@@ -1,8 +1,5 @@
 var html = require('choo/html')
 var Component = require('choo/component')
-var { i18n } = require('../base')
-
-var text = i18n()
 
 class Player extends Component {
   update (content) {
@@ -44,9 +41,8 @@ class Player extends Component {
           ` : content}
         </div>
         <button class="Embed-close" onclick="${() => this.close(onclose)}">
-          <span class="Embed-cross">
-            <span class="u-hiddenVisually">${text`Close`}</span>
-          </span>
+          <span class="Embed-cross"></span>
+          <span class="u-hiddenVisually">Close</span>
         </button>
       </div>
     `

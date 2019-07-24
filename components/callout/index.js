@@ -1,7 +1,5 @@
 var html = require('choo/html')
-var { i18n, loader, className } = require('../base')
-
-var text = i18n()
+var { loader, className } = require('../base')
 
 module.exports = callout
 module.exports.loading = loading
@@ -33,7 +31,7 @@ function callout (props) {
           </div>
         </div>
         ${props.link ? html`
-          <a class="Callout-link" ${link}>${props.link.text || text`Read more`}</a>
+          <a class="Callout-link" ${link}>${props.link.text || 'Read more'}</a>
         ` : null}
       </div>
     </article>

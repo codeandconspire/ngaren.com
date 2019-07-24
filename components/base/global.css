@@ -1,6 +1,7 @@
 :root {
   --document-font-family: "Temp", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --document-font-size: 1rem;
+  --document-font-size: 2rem;
+  --document-font-size-small: 1rem;
   --document-line-height: 1;
 
   --document-background: 255, 255, 255;
@@ -39,6 +40,8 @@
 @media (min-width: 600px) {
   :root {
     --document-margin: 2.5rem;
+    --document-font-size: 3.25rem;
+    --document-font-size-small: 1.55rem;
   }
 }
 

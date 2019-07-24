@@ -1,9 +1,6 @@
 var html = require('choo/html')
 var Component = require('choo/component')
 var Prismic = require('prismic-javascript')
-var { i18n } = require('../base')
-
-var text = i18n()
 
 var COOKIE_REGEX = new RegExp(`${Prismic.previewCookie}=(.+?)(?:;|$)`)
 
@@ -60,12 +57,12 @@ module.exports = class PrismicToolbar extends Component {
             <path d="M0 11v7.8c0 3.3 2.7 6 6 6 0 0 5.7-.3 8.4-2.5l.5-.5H7c-2.2 0-4-1.8-4-4V16c-.4-.2-.8-.5-1-1-1-1-1.5-2.4-2-4z"/>
           </g>
         </svg>
-        <h2 class="PrismicToolbar-title">${text`Preview`}</h2>
+        <h2 class="PrismicToolbar-title">Preview</h2>
         <div class="PrismicToolbar-share">
           <input type="url" autocomplete="off" value="${this.url()}?token=${this.local.token}" class="PrismicToolbar-url js-preview" readonly>
-          <button type="button" onclick=${copy}>${text`Copy`}</button>
+          <button type="button" onclick=${copy}>Copy</button>
         </div>
-        <button class="PrismicToolbar-close" title="${text`Close`}" onclick=${close}>✕</button>
+        <button class="PrismicToolbar-close" title="Close" onclick=${close}>✕</button>
       </aside>
     `
 

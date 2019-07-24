@@ -3,9 +3,7 @@ var asElement = require('prismic-element')
 var embed = require('../embed')
 var callout = require('../callout')
 var serialize = require('../text/serialize')
-var { i18n, asText, resolve, srcset, src, memo } = require('../base')
-
-var text = i18n()
+var { asText, resolve, srcset, src, memo } = require('../base')
 
 module.exports = slices
 
@@ -92,7 +90,7 @@ function slices (slice, index, list, onclick) {
       var action = slice.primary.link_text
       if (!action) {
         if (link.id) action = link.data.cta
-        else action = text`Read more`
+        else action = 'Read more'
       }
 
       let props = {

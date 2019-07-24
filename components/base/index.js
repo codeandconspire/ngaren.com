@@ -1,8 +1,5 @@
-var fs = require('fs')
-var path = require('path')
 var LRU = require('nanolru')
 var assert = require('assert')
-var common = require('./lang.json')
 
 if (typeof window !== 'undefined') {
   require('focus-visible')
@@ -21,8 +18,7 @@ function resolve (doc) {
 
   switch (doc.type) {
     case 'website':
-    case 'homepage': return '/'
-    case 'page':
+    case 'page': return `${root}/${doc.uid}`
     case 'Web':
     case 'Media': return doc.url
     default: {
@@ -32,49 +28,6 @@ function resolve (doc) {
       throw new Error(`Could not resolve href for document type "${doc.type}"`)
     }
   }
-}
-
-// initialize translation utility with given language file
-// obj -> str
-exports.i18n = i18n
-function i18n (source) {
-  source = source || common
-
-  // get text by applying as tagged template literal i.e. text`Hello ${str}`
-  // (arr|str[, ...str]) -> str
-  return function (strings, ...parts) {
-    parts = parts || []
-
-    var key = Array.isArray(strings) ? strings.join('%s') : strings
-    var value = source[key] || common[key]
-
-    if (!value) {
-      value = common[key] = key
-      if (typeof window === 'undefined') {
-        var file = path.join(__dirname, 'lang.json')
-        fs.writeFileSync(file, JSON.stringify(common, null, 2))
-      }
-    }
-
-    var hasForeignPart = false
-    var res = value.split('%s').reduce(function (result, str, index) {
-      var part = parts[index] || ''
-      if (!hasForeignPart) {
-        hasForeignPart = (typeof part !== 'string' && typeof part !== 'number')
-      }
-      result.push(str, part)
-      return result
-    }, [])
-
-    return hasForeignPart ? res : res.join('')
-  }
-}
-
-// get viewport height
-// () -> num
-exports.vh = vh
-function vh () {
-  return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 }
 
 // compose class name based on supplied conditions

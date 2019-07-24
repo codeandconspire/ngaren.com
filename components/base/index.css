@@ -61,6 +61,10 @@
   }
 }
 
+body {
+  font-size: var(--document-font-size);
+}
+
 *,
 *::before,
 *::after {
@@ -184,15 +188,6 @@ button {
   color: inherit;
   font: inherit;
   line-height: inherit;
-  cursor: default;
-}
-
-/**
- * Pointer is for links, not for actions on the same page
- */
-
-:root[scripting-enabled] [role="button"],
-:root[scripting-enabled] [role="tab"] {
   cursor: default;
 }
 
