@@ -38,7 +38,7 @@ function serialize (type, node, content, children) {
       return html`
         <figure>
           <img ${attrs} src="${src(node.url, 800)}">
-          ${node.alt ? html`<figcaption class="Text-caption">${node.alt}</figcaption>` : null}
+          ${node.alt ? html`<figcaption>${node.alt}</figcaption>` : null}
         </figure>
       `
     }

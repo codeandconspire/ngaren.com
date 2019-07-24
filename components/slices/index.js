@@ -1,9 +1,8 @@
 var html = require('choo/html')
 var asElement = require('prismic-element')
 var embed = require('../embed')
-var callout = require('../callout')
-var serialize = require('../text/serialize')
-var { asText, resolve, srcset, src, memo } = require('../base')
+var serialize = require('../base/serialize')
+var { resolve, srcset, src, memo } = require('../base')
 
 module.exports = slices
 
@@ -12,10 +11,8 @@ function slices (slice, index, list, onclick) {
     case 'text': {
       if (!slice.primary.text.length) return null
       return html`
-        <div class="u-container u-space1">
-          <div class="Text">      
-            ${asElement(slice.primary.text, resolve, serialize)}
-          </div>
+        <div class="u-container">
+          ${asElement(slice.primary.text, resolve, serialize)}
         </div>
       `
     }
@@ -39,14 +36,10 @@ function slices (slice, index, list, onclick) {
       var caption = slice.primary.image.alt
 
       return html`
-        <figure class="Text u-sizeFull u-space1">
-          <div class="u-md-container">
-            <div class="u-lg-expand">
-              <img ${attrs} src="${src(slice.primary.image.url, 800)}">
-              <div class="u-container">
-                ${caption ? html`<figcaption class="Text-caption">${caption}</figcaption>` : null}
-              </div>
-            </div>
+        <figure>
+          <img ${attrs} src="${src(slice.primary.image.url, 800)}">
+          <div class="u-container">
+            ${caption ? html`<figcaption class="Text-caption">${caption}</figcaption>` : null}
           </div>
         </figure>
       `
@@ -57,7 +50,7 @@ function slices (slice, index, list, onclick) {
       let narrow = (next && next.slice_type === 'text') && (!prev || prev.slice_type === 'text')
       return html`
         <div class="u-container">
-          <hr class="${narrow ? 'u-medium' : ''} u-space1">
+          <hr class="${narrow ? 'u-medium' : ''}">
         </div>
       `
     }
@@ -67,60 +60,9 @@ function slices (slice, index, list, onclick) {
       if (!children) return null
 
       return html`
-        <div class="u-md-container u-space2">
-          <figure class="Text u-sizeFull">
-            <div class="u-space1">${children}</div>
-          </div>
+        <div class="u-md-container">
+          ${children}
         </div>
-      `
-    }
-    case 'callout': {
-      let link = slice.primary.link
-      let title = asText(slice.primary.heading)
-      if (!title && link.id) title = asText(link.data.title)
-      let body = asText(slice.primary.text)
-      if (!text.length && link.id) body = asText(link.data.description)
-
-      let image = slice.primary.image
-      if (!image || (!image.url && link.id)) {
-        image = link.data.featured_image
-        if (!image || !image.url) image = link.data.image
-      }
-
-      var action = slice.primary.link_text
-      if (!action) {
-        if (link.id) action = link.data.cta
-        else action = 'Read more'
-      }
-
-      let props = {
-        title: title,
-        body: body,
-        theme: slice.primary.theme.toLowerCase(),
-        direction: slice.primary.direction.toLowerCase(),
-        link: (link.url || link.id) && !link.isBroken ? {
-          href: resolve(link),
-          onclick: link.id ? onclick(link) : null,
-          text: action
-        } : null,
-        image: memo(function (url, sizes) {
-          if (!url) return null
-          return {
-            src: src(url, 720),
-            sizes: '(min-width: 1000px) 35vw, (min-width: 600px) 200px, 100vw',
-            srcset: srcset(url, sizes, {
-              aspect: 10 / 12,
-              transforms: 'c_thumb,g_face'
-            }),
-            alt: image.alt || '',
-            width: image.dimensions.width,
-            height: image.dimensions.width * 10 / 12
-          }
-        }, [image && image.url, [720, 400, 800, 1200]])
-      }
-
-      return html`
-        <div class="u-container u-space0">${callout(props)}</div>
       `
     }
     default: return null

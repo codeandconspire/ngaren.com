@@ -19,12 +19,12 @@ function page (state, emit) {
     `
   })
 
-  // create link handler, emitting pushState w/ partial info
+  // create link handler, emitting pushState
   // obj -> fn
   function onclick (doc) {
     return function (event) {
       if (metaKey(event)) return
-      emit('pushState', event.currentTarget.href, { partial: doc })
+      emit('pushState', event.currentTarget.href)
       event.preventDefault()
     }
   }

@@ -146,24 +146,6 @@ function prismicStore (opts) {
       return get(Prismic.Predicates.at(path, uid), opts, first(callback))
     }
 
-    // get single document by id
-    // (str, obj?, callback)
-    function getByID (id, opts, callback) {
-      assert(typeof id === 'string', 'choo-prismic: id should be type string')
-      callback = typeof opts === 'function' ? opts : callback
-      opts = typeof opts === 'function' ? {} : opts
-      return get(Prismic.Predicates.at('document.id', id), opts, first(callback))
-    }
-
-    // get documents by id
-    // (arr, obj?, fn) -> any
-    function getByIDs (ids, opts, callback) {
-      assert(Array.isArray(ids), 'choo-prismic: ids should be type array')
-      callback = typeof opts === 'function' ? opts : callback
-      opts = typeof opts === 'function' ? {} : opts
-      return get(Prismic.Predicates.in('document.id', ids), opts, callback)
-    }
-
     // get single document by type
     // (str, obj?, fn) -> any
     function getSingle (type, opts, callback) {
@@ -176,8 +158,6 @@ function prismicStore (opts) {
     state.prismic = Object.create({
       get: get,
       cache: cache,
-      getByID: getByID,
-      getByIDs: getByIDs,
       getByUID: getByUID,
       getSingle: getSingle,
       toJSON () {

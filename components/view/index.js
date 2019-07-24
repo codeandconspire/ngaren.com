@@ -1,7 +1,6 @@
 var html = require('choo/html')
 var raw = require('choo/html/raw')
 var error = require('./error')
-var PrismicToolbar = require('../prismic-toolbar')
 var { asText } = require('../base')
 
 var DEFAULT_TITLE = 'Ngaren'
@@ -12,7 +11,7 @@ function createView (view, getMeta) {
   return function (state, emit) {
     return state.prismic.getSingle('website', function (err, doc) {
       var children
-      var meta = { theme: 'blue' }
+      var meta = {}
 
       try {
         if (err) throw err
@@ -45,7 +44,6 @@ function createView (view, getMeta) {
         <body class="View" id="view">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
           ${children}
-          ${state.cache(PrismicToolbar, 'prismic-toolbar').placeholder(state.href)}
         </body>
       `
 
