@@ -38,16 +38,11 @@
   max-width: calc(var(--container-large-width) + (var(--document-margin) * 2)) !important
 }
 
-.u-large {
-  max-width: var(--container-large-width) !important;
-}
-
-.u-medium {
-  max-width: var(--container-medium-width) !important;
-}
-
-.u-small {
-  max-width: var(--container-small-width) !important;
+@media (min-width: 600px) {
+  .u-padded {
+    padding-left: var(--document-margin) !important;
+    padding-right: var(--document-margin) !important;
+  }
 }
 
 @media (max-width: 599px) {
