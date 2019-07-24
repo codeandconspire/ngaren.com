@@ -2,15 +2,68 @@
 
 /* @define Header */
 .Header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  height: var(--Header-height);
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #fff;
   user-select: none;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  margin: 1rem 0 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.Header-start {
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  padding: 2.1em 0 1rem;
+  margin-left: -0.2em;
+}
+
+.Header-icon {
+  position: absolute;
+  width: calc(100% - 0.4em);
+  top: 0;
+}
+
+.Header-nav {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid;
+  padding-top: 0.8rem;
+}
+
+.Header-link {
+  display: block;
+  padding: 0.3rem;
+  margin: 0 -0.7rem 0 -0.3rem;
+}
+
+@media (min-width: 600px) {
+  .Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid;
+    margin-top: var(--document-margin);
+    padding-top: 1.5rem;
+  }
+
+  .Header-start {
+    font-size: 1.4em;
+    padding: 0.3rem;
+  }
+
+  .Header-icon {
+    display: none;
+  }
+
+  .Header-nav {
+    justify-content: flex-end;
+    padding: 0;
+    border: 0;
+  }
+
+  .Header-link {
+    margin-left: 2.6rem;
+  }
 }

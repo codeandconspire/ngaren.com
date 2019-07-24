@@ -2,6 +2,8 @@ var html = require('choo/html')
 var raw = require('choo/html/raw')
 var error = require('./error')
 var { asText } = require('../base')
+var header = require('../header')
+var footer = require('../footer')
 
 var DEFAULT_TITLE = 'Ngaren'
 
@@ -43,7 +45,13 @@ function createView (view, getMeta) {
       return html`
         <body class="View" id="view">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
+          <div class="u-container">
+            ${header()}
+          </div>
           ${children}
+          <div class="u-container">
+            ${footer()}
+          </div>
         </body>
       `
 
