@@ -11,6 +11,7 @@
   font-family: "Font";
   font-style: normal;
   font-weight: bold;
+  font-display: block;
   src: url("./fonts/font-bold.woff2") format("woff2");
 }
 
@@ -18,6 +19,7 @@
   font-family: "Font";
   font-style: normal;
   font-weight: normal;
+  font-display: block;
   src: url("./fonts/font-book.woff2") format("woff2");
 }
 
@@ -76,7 +78,7 @@ body {
  */
 
 ::selection {
-  background: rgba(var(--color-pink), 0.25);
+  background: #ccc;
 }
 
 /**
@@ -91,15 +93,10 @@ iframe {
   vertical-align: bottom;
 }
 
-/**
- * 1. Improve alt text rendering for broken images
- */
-
 img {
   width: 100%;
   max-width: 100%;
   height: auto;
-  font-size: 0.8rem; /* 1 */
 }
 
 /**
@@ -116,7 +113,7 @@ strong {
  * 2. Remove the tapping delay
  */
 
- a {
+a {
   color: inherit;
   text-decoration: none;
   cursor: pointer;
@@ -172,7 +169,7 @@ hr {
   height: 1px;
   margin: 0;
   border: 0;
-  background: rgb(var(--color-divider));
+  background: currentColor;
 }
 
 /**
@@ -191,19 +188,6 @@ button {
   cursor: default;
 }
 
-/**
- * Remove default focus styles for mouse users if :focus-visible is supported on
- * this platform, or polyfilled with https://github.com/WICG/focus-visible
- */
-
-:focus:not(:focus-visible) {
-  outline: 0 !important;
-}
-
-/**
- * Provide enhanced focus styles for keyboard focus
- */
-
-:focus-visible {
-  outline: rgb(var(--focus-ring-color)) solid var(--focus-ring-width) !important;
+:focus {
+  outline: 0;
 }

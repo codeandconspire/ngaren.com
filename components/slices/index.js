@@ -1,7 +1,6 @@
 var html = require('choo/html')
 var asElement = require('prismic-element')
 var embed = require('../embed')
-var serialize = require('../base/serialize')
 var { resolve, srcset, src, memo } = require('../base')
 
 module.exports = slices
@@ -12,7 +11,7 @@ function slices (slice, index, list, onclick) {
       if (!slice.primary.text.length) return null
       return html`
         <div class="u-container">
-          ${asElement(slice.primary.text, resolve, serialize)}
+            ${asElement(slice.primary.text, resolve)}
         </div>
       `
     }

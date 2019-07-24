@@ -23,7 +23,7 @@ function createView (view, getMeta) {
         }
 
         let defaults = {
-          title: doc ? asText(doc.data.title) : `Loading – ${DEFAULT_TITLE}`,
+          title: doc ? asText(doc.data.title) : DEFAULT_TITLE,
           description: doc ? asText(doc.data.description) : null
         }
 

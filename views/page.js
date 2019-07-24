@@ -5,6 +5,8 @@ var { asText, src, HTTPError, metaKey } = require('../components/base')
 
 module.exports = view(page, meta, 'page')
 
+var DEFAULT_TITLE = 'Ngaren'
+
 function page (state, emit) {
   var find = state.params.page ? state.params.page : 'home'
   return state.prismic.getByUID('page', find, function (err, doc) {
@@ -13,7 +15,6 @@ function page (state, emit) {
 
     return html`
       <main class="View-main">
-        ${asText(doc.data.title)}
         ${doc.data.body.map((slice, index, list) => slices(slice, index, list, onclick))}
       </main>
     `
@@ -36,7 +37,7 @@ function meta (state) {
     if (err) throw err
     if (!doc) return null
     var props = {
-      title: asText(doc.data.title),
+      title: find === 'home' ? DEFAULT_TITLE : asText(doc.data.title),
       description: asText(doc.data.description)
     }
 

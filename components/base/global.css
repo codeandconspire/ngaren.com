@@ -8,32 +8,20 @@
   --document-color: 0, 0, 0;
 
   --document-width: 1600px;
-  --document-margin: 1.2rem;
+  --document-margin: 0.75rem;
 
   --container-large-width: var(--document-width);
   --container-medium-width: 43rem;
   --container-small-width: 30rem;
-
-  --loading-color: 17, 0, 70, 0.06;
-  --loading-color-solid: 235, 235, 235;
-
-  --focus-ring-width: 3px;
-  --focus-ring-color: var(--color-blue);
 
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (min-width: 350px) {
-  :root {
-    --document-margin: 1.5rem;
-  }
-}
-
 @media (min-width: 400px) {
   :root {
-    --document-margin: 1.8rem;
+    --document-margin: 1rem;
   }
 }
 
