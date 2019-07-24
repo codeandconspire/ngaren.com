@@ -14,8 +14,12 @@ module.exports.id = id
 function embed (props) {
   assert(props.src, 'figure: src string is required')
   var src = props.src
-  var attrs = pluck(props, 'width', 'height', 'srcset', 'sizes', 'alt')
+  var attrs = {}
   attrs.alt = attrs.alt || props.title || ''
+  attrs.sizes = props.sizes
+  attrs.srcset = props.srcset
+  attrs.width = props.width
+  attrs.height = props.height
 
   return html`
     <figure class="Embed ${props.size ? `Embed--${props.size}` : ''}">

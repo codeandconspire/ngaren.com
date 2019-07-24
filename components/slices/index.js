@@ -18,22 +18,16 @@ function slices (slice, index, list, onclick) {
     }
     case 'image': {
       if (!slice.primary.image.url) return null
-
-      let attrs = memo(function (image) {
-        var attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
-
-        if (!/\.(svg|gif?)$/.test(image.url)) {
-          attrs.sizes = '100vw'
-          attrs.srcset = srcset(
-            image.url,
-            [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
-          )
-        }
-
-        return attrs
-      }, [slice.primary.image])
-
       var caption = slice.primary.image.alt
+      var image = slice.primary.image
+      var attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
+      if (!/\.(svg|gif?)$/.test(image.url)) {
+        attrs.sizes = '100vw'
+        attrs.srcset = srcset(
+          image.url,
+          [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
+        )
+      }
 
       return html`
         <figure>

@@ -1,11 +1,3 @@
-var LRU = require('nanolru')
-var assert = require('assert')
-
-if (typeof window !== 'undefined') {
-  require('focus-visible')
-  require('smoothscroll-polyfill').polyfill()
-}
-
 // resolve prismic document url
 // obj -> str
 exports.resolve = resolve
@@ -30,50 +22,12 @@ function resolve (doc) {
   }
 }
 
-// compose class name based on supplied conditions
-// (str|obj, obj?) -> str
-exports.className = className
-function className (root, classes) {
-  if (typeof root === 'object') {
-    classes = root
-    root = ''
-  }
-
-  return Object.keys(classes).reduce((str, key) => {
-    if (!classes[key]) return str
-    return str + ' ' + key
-  }, root).trim()
-}
-
 // detect if meta key was pressed on event
 // obj -> bool
 exports.metaKey = metaKey
 function metaKey (e) {
   if (e.button && e.button !== 0) return true
   return e.ctrlKey || e.metaKey || e.altKey || e.shiftKey
-}
-
-// pick props from object
-// (obj, arr|...str) -> obj
-exports.pluck = pluck
-function pluck (src, ...keys) {
-  keys = Array.isArray(keys[0]) ? keys[0] : keys
-  return keys.reduce(function (obj, key) {
-    if (src[key]) obj[key] = src[key]
-    return obj
-  }, {})
-}
-
-// compose reduce middlewares that boils down list ot truthy values
-// (arr, ...fn) -> arr
-exports.reduce = reduce
-function reduce (list) {
-  var middleware = Array.prototype.slice.call(arguments, 1)
-  return list.reduce(function (result, initial, i, from) {
-    var val = middleware.reduce((val, fn) => val && fn(val, i, from), initial)
-    if (val) result.push(val)
-    return result
-  }, [])
 }
 
 // compose src attribute from url for a given size
@@ -111,16 +65,6 @@ function srcset (uri, sizes, opts = {}) {
 
     return `${src(uri, size, opts)} ${size}w`
   }).join(',')
-}
-
-// get HH:mm timestamp from date
-// Date -> str
-exports.timestamp = timestamp
-function timestamp (date) {
-  return [
-    ('0' + date.getHours()).substr(-2),
-    ('0' + date.getMinutes()).substr(-2)
-  ].join('.')
 }
 
 // nullable text getter for Prismic text fields
@@ -162,20 +106,4 @@ if (Object.setPrototypeOf) {
   Object.setPrototypeOf(HTTPError, Error)
 } else {
   HTTPError.__proto__ = Error // eslint-disable-line no-proto
-}
-
-var MEMO = new LRU()
-
-// momize function
-// (fn, arr) -> any
-exports.memo = memo
-function memo (fn, keys) {
-  assert(Array.isArray(keys) && keys.length, 'memo: keys should be non-empty array')
-  var key = JSON.stringify(keys)
-  var result = MEMO.get(key)
-  if (!result) {
-    result = fn.apply(undefined, keys)
-    MEMO.set(key, result)
-  }
-  return result
 }
