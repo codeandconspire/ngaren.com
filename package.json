@@ -32,10 +32,10 @@
       "NODE_ENV": "production",
       "CLOUDINARY_KEY": "@cloudinary-key",
       "CLOUDINARY_SECRET": "@cloudinary-secret",
-      "PRISMIC_SECRET": "@prismic-bomaglobal-secret",
-      "CLOUDFLARE_ZONE": "@cloudflare-bomaglobal-zone",
-      "CLOUDFLARE_EMAIL": "@cloudflare-bomaglobal-email",
-      "CLOUDFLARE_KEY": "@cloudflare-bomaglobal-key",
+      "PRISMIC_SECRET": "@prismic-ngaren-secret",
+      "CLOUDFLARE_ZONE": "@cloudflare-ngaren-zone",
+      "CLOUDFLARE_EMAIL": "@cloudflare-ngaren-email",
+      "CLOUDFLARE_KEY": "@cloudflare-ngaren-key",
       "POLYFILL_FEATURES": "default-3.3,Array.prototype.find,Array.prototype.findIndex,Array.prototype.includes"
     }
   },
