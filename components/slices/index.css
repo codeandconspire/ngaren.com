@@ -75,3 +75,88 @@
     margin: var(--document-margin) 0;
   }
 }
+
+/**
+ * Person
+ */
+
+.Slice--person .Slice-body {
+  font-size: var(--document-font-size-small);
+  line-height: var(--document-line-height-small);
+}
+
+.Slice--person h1,
+.Slice--person h2,
+.Slice--person p {
+  max-width: none;
+  width: 100%;
+}
+
+.Slice--person .Slice-body {
+  max-width: 100%;
+}
+
+@media (min-width: 600px) {
+  .Slice--person {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0;
+  }
+
+  .Slice--person .Slice-body {
+    flex: 1 1 50%;
+    padding-right: calc(var(--document-margin) / 2);
+  }
+
+  .Slice--person .Slice-aside {
+    order: 1;
+    padding-left: calc(var(--document-margin) / 2);
+    flex: 1 1 50%;
+  }
+
+  .Slice--person.Slice--alt .Slice-body {
+    padding-right: 0;
+    padding-left: calc(var(--document-margin) / 2);
+  }
+
+  .Slice--person.Slice--alt .Slice-aside {
+    order: -1;
+    padding-left: 0;
+    padding-right: calc(var(--document-margin) / 2);
+  }
+
+  .Slice--person .Slice-body > :first-child {
+    margin-top: 0;
+  }
+
+  .Slice--person .Slice-body h1,
+  .Slice--person .Slice-body h2,
+  .Slice--person .Slice-body p {
+    max-width: 16.6em;
+  }
+
+  .Slice--person .Slice-figure {
+    margin: var(--document-margin) 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .Slice--person .Slice-body {
+    padding-right: var(--document-margin);
+  }
+
+  .Slice--person .Slice-aside {
+    padding-left: var(--document-margin);
+  }
+
+  .Slice--person.Slice--alt .Slice-body {
+    padding-right: 0;
+    padding-left: var(--document-margin);
+  }
+
+  .Slice--person.Slice--alt .Slice-aside {
+    padding-left: 0;
+    padding-right: var(--document-margin);
+  }
+}

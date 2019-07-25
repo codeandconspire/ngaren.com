@@ -4,7 +4,7 @@ var embed = require('../embed')
 var { resolve, srcset, src } = require('../base')
 
 module.exports = slices
-
+var odd = false
 function slices (slice, index, list, onclick) {
   switch (slice.slice_type) {
     case 'text': {
@@ -23,13 +23,11 @@ function slices (slice, index, list, onclick) {
       if (!slice.primary.text.length || !slice.primary.image.url) return null
       let image = slice.primary.image
       let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
-      if (!/\.(svg|gif?)$/.test(image.url)) {
-        attrs.sizes = '100vw'
-        attrs.srcset = srcset(
-          image.url,
-          [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
-        )
-      }
+      attrs.sizes = '100vw'
+      attrs.srcset = srcset(
+        image.url,
+        [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
+      )
       return html`
         <div class="u-container">
           <div class="u-padded">
@@ -51,19 +49,44 @@ function slices (slice, index, list, onclick) {
       if (!slice.primary.image.url) return null
       let image = slice.primary.image
       let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
-      if (!/\.(svg|gif?)$/.test(image.url)) {
-        attrs.sizes = '100vw'
-        attrs.srcset = srcset(
-          image.url,
-          [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
-        )
-      }
+      attrs.sizes = '100vw'
+      attrs.srcset = srcset(
+        image.url,
+        [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
+      )
 
       return html`
         <div class="Slice Slice--image">
           <figure class="Slice Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
             <img ${attrs} src="${src(slice.primary.image.url, 800)}">
           </figure>
+        </div>
+      `
+    }
+    case 'person': {
+      if (!slice.primary.image.url || !slice.primary.text.length) return null
+      let image = slice.primary.image
+      let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
+      attrs.sizes = '100vw'
+      attrs.srcset = srcset(
+        image.url,
+        [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
+      )
+
+      return html`
+        <div class="u-container">
+          <div class="u-padded">
+            <div class="Slice Slice--person ${(odd = !odd) ? '' : 'Slice--alt'}">
+              <div class="Slice-aside">
+                <figure class="Slice Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
+                  <img ${attrs} src="${src(slice.primary.image.url, 800)}">
+                </figure>
+              </div>
+              <div class="Slice Slice-body">
+                ${asElement(slice.primary.text, resolve)}
+              </div>
+            </div>
+          </div>
         </div>
       `
     }
@@ -79,13 +102,11 @@ function slices (slice, index, list, onclick) {
       // if (!slice.primary.image.url) return null
       // let image = slice.primary.image
       // let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
-      // if (!/\.(svg|gif?)$/.test(image.url)) {
-      //   attrs.sizes = '100vw'
-      //   attrs.srcset = srcset(
-      //     image.url,
-      //     [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
-      //   )
-      // }
+      // attrs.sizes = '100vw'
+      // attrs.srcset = srcset(
+      //   image.url,
+      //   [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
+      // )
 
       // return html`
       //   <div class="u-lg-container">
