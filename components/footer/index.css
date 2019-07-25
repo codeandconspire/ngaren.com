@@ -3,11 +3,17 @@
 /* @define Footer */
 .Footer {
   user-select: none;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   font-size: 0.8125rem;
-  margin: 3rem 0 3rem;
+  margin: 0 0 var(--document-margin) 0;
   font-weight: bold;
+}
+
+@media (min-width: 500px) {
+  .Footer {
+    letter-spacing: 0.5em;
+  }
 }
 
 .Footer-link {
@@ -36,5 +42,11 @@
 
   .Footer-start .Footer-link {
     margin-left: -0.2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .Footer {
+    font-size: 1rem;
   }
 }

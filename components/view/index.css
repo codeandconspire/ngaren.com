@@ -7,3 +7,7 @@
   min-height: 100%;
   background: rgb(var(--document-background));
 }
+
+.View-main {
+  flex-grow: 1;
+}

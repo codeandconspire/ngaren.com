@@ -179,7 +179,7 @@
 .Embed-cross::after {
   content: "";
   width: 1.5rem;
-  height: 2px;
+  height: 3px;
   position: absolute;
   right: 1rem;
   top: 50%;

@@ -38,7 +38,7 @@
   max-width: calc(var(--container-large-width) + (var(--document-margin) * 2)) !important
 }
 
-@media (min-width: 600px) {
+@media (min-width: 1200px) {
   .u-padded {
     padding-left: var(--document-margin) !important;
     padding-right: var(--document-margin) !important;

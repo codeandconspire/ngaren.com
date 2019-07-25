@@ -7,7 +7,7 @@
   --document-background: 255, 255, 255;
   --document-color: 0, 0, 0;
 
-  --document-width: 1600px;
+  --document-width: 2000px;
   --document-margin: 0.75rem;
 
   --container-large-width: var(--document-width);
@@ -25,22 +25,40 @@
   }
 }
 
-@media (min-width: 600px) {
+@media (min-width: 400px) {
   :root {
-    --document-margin: 2.5rem;
-    --document-font-size: 3.25rem;
-    --document-font-size-small: 1.55rem;
+    --document-margin: 1.5rem;
+    --document-font-size: 2.5rem;
+    --document-font-size-small: 1.25rem;
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 600px) {
   :root {
+    --document-margin: 2.4rem;
+    --document-font-size: 2.8rem;
+  }
+}
+
+@media (min-width: 800px) {
+  :root {
+    --document-font-size: 3.25rem;
+    --document-font-size-small: 1.55rem;
     --document-margin: 3.5rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  :root {
+    --document-font-size: 3.75rem;
+    --document-font-size-small: 1.55rem;
+    --document-margin: 4rem;
   }
 }
 
 @media (min-width: 1400px) {
   :root {
-    --document-margin: 6rem;
+    --document-font-size: 4.8rem;
+    --document-font-size-small: 3rem;
   }
 }

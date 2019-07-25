@@ -12,7 +12,9 @@ function slices (slice, index, list, onclick) {
       return html`
         <div class="u-container">
           <div class="u-padded">
-            ${asElement(slice.primary.text, resolve)}
+            <div class="Slice">
+              ${asElement(slice.primary.text, resolve)}
+            </div>
           </div>
         </div>
       `
@@ -31,13 +33,15 @@ function slices (slice, index, list, onclick) {
       return html`
         <div class="u-container">
           <div class="u-padded">
-            <div class="Hero">
-              <div class="Hero-body">
+            <div class="Slice Slice--hero">
+              <div class="Slice Slice-body">
                 ${asElement(slice.primary.text, resolve)}
               </div>
-              <figure class="Hero-figure">
-                <img ${attrs} src="${src(slice.primary.image.url, 800)}">
-              </figure>
+              <div class="Slice-aside">
+                <figure class="Slice Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
+                  <img ${attrs} src="${src(slice.primary.image.url, 800)}">
+                </figure>
+              </div>
             </div>
           </div>
         </div>
@@ -56,9 +60,11 @@ function slices (slice, index, list, onclick) {
       }
 
       return html`
-        <figure>
-          <img ${attrs} src="${src(slice.primary.image.url, 800)}">
-        </figure>
+        <div class="Slice Slice--image">
+          <figure class="Slice Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
+            <img ${attrs} src="${src(slice.primary.image.url, 800)}">
+          </figure>
+        </div>
       `
     }
     case 'line': {

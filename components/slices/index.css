@@ -1,0 +1,77 @@
+@import "../base";
+
+/* @define Slice */
+.Slice {
+  margin: var(--document-margin) 0;
+}
+
+.Slice-body {
+  max-width: 88%;
+}
+
+.Slice-figure {
+  position: relative;
+  height: 0;
+  margin: 2.5rem 0;
+  overflow: hidden;
+  background: currentColor;
+}
+
+.Slice h1,
+.Slice h2,
+.Slice p {
+  margin: 0.8em 0;
+  max-width: 15em;
+}
+
+.Slice img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.Slice a {
+  border-bottom: 1px solid;
+  color: #a7a7a7;
+  display: inline-block;
+}
+
+@media (min-width: 600px) {
+  .Slice a {
+    border-bottom-width: 3px;
+  }
+}
+
+/**
+ * Hero
+ */
+
+@media (min-width: 1000px) {
+  .Slice--hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+  }
+
+  .Slice--hero .Slice-body {
+    flex: 1 1 50%;
+    padding-right: 2rem;
+  }
+
+  .Slice--hero .Slice-body > * {
+    max-width: 8em;
+  }
+
+  .Slice--hero .Slice-aside {
+    padding-left: 2rem;
+    flex: 1 1 50%;
+  }
+
+  .Slice--hero .Slice-figure {
+    margin: var(--document-margin) 0;
+  }
+}
