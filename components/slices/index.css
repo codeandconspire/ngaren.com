@@ -247,3 +247,11 @@
     margin: -10% 0 calc(var(--document-margin) * 2) 12%;
   }
 }
+
+/**
+ * Space
+ */
+
+.Slice--space {
+  margin-bottom: calc(var(--document-margin) * 3);
+}

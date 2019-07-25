@@ -128,6 +128,9 @@ function slices (slice, index, list, onclick) {
         </div>
       `
     }
+    case 'space': {
+      return html`<div class="Slice Slice--space"></div>`
+    }
     case 'video': {
       return null
       // if (!slice.primary.image.url) return null
