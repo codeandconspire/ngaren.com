@@ -5,6 +5,8 @@ var { resolve, srcset, src } = require('../base')
 
 module.exports = slices
 var odd = false
+var even = false
+
 function slices (slice, index, list, onclick) {
   switch (slice.slice_type) {
     case 'text': {
@@ -36,7 +38,7 @@ function slices (slice, index, list, onclick) {
                 ${asElement(slice.primary.text, resolve)}
               </div>
               <div class="Slice-aside">
-                <figure class="Slice Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
+                <figure class="Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
                   <img ${attrs} src="${src(slice.primary.image.url, 800)}">
                 </figure>
               </div>
@@ -57,7 +59,7 @@ function slices (slice, index, list, onclick) {
 
       return html`
         <div class="Slice Slice--image">
-          <figure class="Slice Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
+          <figure class="Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
             <img ${attrs} src="${src(slice.primary.image.url, 800)}">
           </figure>
         </div>
@@ -78,13 +80,42 @@ function slices (slice, index, list, onclick) {
           <div class="u-padded">
             <div class="Slice Slice--person ${(odd = !odd) ? '' : 'Slice--alt'}">
               <div class="Slice-aside">
-                <figure class="Slice Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
+                <figure class="Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
                   <img ${attrs} src="${src(slice.primary.image.url, 800)}">
                 </figure>
               </div>
               <div class="Slice Slice-body">
                 ${asElement(slice.primary.text, resolve)}
               </div>
+            </div>
+          </div>
+        </div>
+      `
+    }
+    case 'gallery': {
+      if (!slice.items.length) return null
+      var images = slice.items.map(function (item) {
+        if (!item.image.url) return
+        let attrs = Object.assign({ alt: item.image.alt || '' }, item.image.dimensions)
+        attrs.sizes = '100vw'
+        attrs.srcset = srcset(
+          item.image.url,
+          [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
+        )
+        return html`
+          <div class="Slice-item">
+            <figure class="Slice-figure" style="padding-bottom: ${(item.image.dimensions.height / item.image.dimensions.width * 100).toFixed(2)}%;">
+              <img ${attrs} src="${src(item.image.url, 800)}">
+            </figure>
+          </div>
+        `
+      })
+
+      return html`
+        <div class="u-container">
+          <div class="u-padded">
+            <div class="Slice Slice--gallery ${(even = !even) ? '' : 'Slice--alt'}">
+              ${images}
             </div>
           </div>
         </div>
