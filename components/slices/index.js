@@ -9,6 +9,16 @@ var even = false
 
 function slices (slice, index, list, onclick) {
   switch (slice.slice_type) {
+    case 'space': {
+      return html`<div class="Slice Slice--space"></div>`
+    }
+    case 'line': {
+      return html`
+        <div class="u-container">
+          <hr>
+        </div>
+      `
+    }
     case 'text': {
       if (!slice.primary.text.length) return null
       return html`
@@ -21,15 +31,28 @@ function slices (slice, index, list, onclick) {
         </div>
       `
     }
+    case 'image': {
+      if (!slice.primary.image.url) return null
+      let image = slice.primary.image
+      let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
+      attrs.sizes = '100vw'
+      attrs.srcset = srcset(image.url, [320, 360, 640, 720, 1080, 1300, 1440, 2000, 2600])
+
+      return html`
+        <div class="Slice Slice--image">
+          <figure class="Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
+            <img ${attrs} src="${src(slice.primary.image.url, 640)}">
+          </figure>
+        </div>
+      `
+    }
     case 'hero': {
       if (!slice.primary.text.length || !slice.primary.image.url) return null
       let image = slice.primary.image
       let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
-      attrs.sizes = '100vw'
-      attrs.srcset = srcset(
-        image.url,
-        [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
-      )
+      attrs.sizes = '(min-midth: 1000px) 40vw, 98vw'
+      attrs.srcset = srcset(image.url, [320, 360, 640, 720, 900, 1080, 1300, 1440, 2000])
+
       return html`
         <div class="u-container">
           <div class="u-padded">
@@ -39,7 +62,7 @@ function slices (slice, index, list, onclick) {
               </div>
               <div class="Slice-aside">
                 <figure class="Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
-                  <img ${attrs} src="${src(slice.primary.image.url, 800)}">
+                  <img ${attrs} src="${src(slice.primary.image.url, 640)}">
                 </figure>
               </div>
             </div>
@@ -47,33 +70,12 @@ function slices (slice, index, list, onclick) {
         </div>
       `
     }
-    case 'image': {
-      if (!slice.primary.image.url) return null
-      let image = slice.primary.image
-      let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
-      attrs.sizes = '100vw'
-      attrs.srcset = srcset(
-        image.url,
-        [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
-      )
-
-      return html`
-        <div class="Slice Slice--image">
-          <figure class="Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
-            <img ${attrs} src="${src(slice.primary.image.url, 800)}">
-          </figure>
-        </div>
-      `
-    }
     case 'person': {
       if (!slice.primary.image.url || !slice.primary.text.length) return null
       let image = slice.primary.image
       let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
-      attrs.sizes = '100vw'
-      attrs.srcset = srcset(
-        image.url,
-        [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
-      )
+      attrs.sizes = '(min-midth: 600px) 10vw, 98vw'
+      attrs.srcset = srcset(image.url, [320, 360, 640, 720, 900, 1080, 1300, 1440, 2000])
 
       return html`
         <div class="u-container">
@@ -81,7 +83,7 @@ function slices (slice, index, list, onclick) {
             <div class="Slice Slice--person ${(odd = !odd) ? '' : 'Slice--alt'}">
               <div class="Slice-aside">
                 <figure class="Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
-                  <img ${attrs} src="${src(slice.primary.image.url, 800)}">
+                  <img ${attrs} src="${src(slice.primary.image.url, 640)}">
                 </figure>
               </div>
               <div class="Slice Slice-body">
@@ -97,11 +99,8 @@ function slices (slice, index, list, onclick) {
       var images = slice.items.map(function (item) {
         if (!item.image.url) return
         let attrs = Object.assign({ alt: item.image.alt || '' }, item.image.dimensions)
-        attrs.sizes = '100vw'
-        attrs.srcset = srcset(
-          item.image.url,
-          [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
-        )
+        attrs.sizes = '(min-midth: 600px) 28vw, 70vw'
+        attrs.srcset = srcset(item.image.url, [150, 200, 320, 360, 640, 720, 900, 1080, 1300, 1440])
         return html`
           <div class="Slice-item">
             <figure class="Slice-figure" style="padding-bottom: ${(item.image.dimensions.height / item.image.dimensions.width * 100).toFixed(2)}%;">
@@ -121,25 +120,13 @@ function slices (slice, index, list, onclick) {
         </div>
       `
     }
-    case 'line': {
-      return html`
-        <div class="u-container">
-          <hr>
-        </div>
-      `
-    }
-    case 'space': {
-      return html`<div class="Slice Slice--space"></div>`
-    }
     case 'video': {
       return null
       // if (!slice.primary.image.url) return null
       // let image = slice.primary.image
       // let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
       // attrs.sizes = '100vw'
-      // attrs.srcset = srcset(
-      //   image.url,
-      //   [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
+      // attrs.srcset = srcset(image.url, [640, 750, 1125, 1440, 2880, 3840]
       // )
 
       // return html`
@@ -157,22 +144,4 @@ function slices (slice, index, list, onclick) {
     }
     default: return null
   }
-}
-
-// map props to embed player
-// obj -> Element
-function video (props) {
-  var id = embed.id(props)
-  if (!id) return null
-
-  var provider = props.provider_name.toLowerCase()
-  return embed({
-    url: props.embed_url,
-    title: props.title,
-    src: `/media/${provider}/w_900/${id}`,
-    width: props.thumbnail_width,
-    height: props.thumbnail_height,
-    sizes: '100vw',
-    srcset: srcset(id, [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']], { type: provider })
-  })
 }

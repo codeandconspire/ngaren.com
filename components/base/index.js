@@ -33,37 +33,23 @@ function metaKey (e) {
 // compose src attribute from url for a given size
 // (str, num, obj?) -> str
 exports.src = src
-function src (uri, size, opts = {}) {
-  var { transforms = 'c_fill,f_auto,q_auto', type = 'fetch' } = opts
-
-  // apply default transforms
-  if (!/c_/.test(transforms)) transforms += ',c_fill'
-  if (!/f_/.test(transforms)) transforms += ',f_jpg'
-  if (!/q_/.test(transforms)) transforms += ',q_auto'
+function src (uri, size) {
+  var q = (size > 1000) ? 'q_22' : 'q_30'
+  var transforms = `c_fill,f_auto,${q}`
 
   // trim prismic domain from uri
   var parts = uri.split('ngaren.cdn.prismic.io/ngaren/')
   uri = parts[parts.length - 1]
 
-  return `/media/${type}/${transforms ? transforms + ',' : ''}w_${size}/${uri}`
+  return `/media/fetch/${transforms ? transforms + ',' : ''}w_${size}/${uri}`
 }
 
 // compose srcset attribute from url for given sizes
 // (str, arr, obj?) -> str
 exports.srcset = srcset
-function srcset (uri, sizes, opts = {}) {
+function srcset (uri, sizes) {
   return sizes.map(function (size) {
-    opts = Object.assign({}, opts)
-    if (Array.isArray(size)) {
-      opts.transforms = opts.transforms ? size[1] + ',' + opts.transforms : size[1]
-      size = size[0]
-    }
-    if (opts.aspect) {
-      let height = `h_${Math.floor(size * opts.aspect)}`
-      opts.transforms = opts.transforms ? `${opts.transforms},${height}` : height
-    }
-
-    return `${src(uri, size, opts)} ${size}w`
+    return `${src(uri, size)} ${size}w`
   }).join(',')
 }
 
