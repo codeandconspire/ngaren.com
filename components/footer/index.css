@@ -13,10 +13,10 @@
 .Footer-link {
   display: block;
   padding: 0.3rem;
-  margin: 0.7rem 0;
+  margin: 0.7rem 0 0.7em -0.3rem;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 700px) {
   .Footer-nav {
     display: flex;
     justify-content: flex-end;
@@ -29,11 +29,12 @@
     margin-right: -0.7rem;
   }
 
-  .Footer-nav > :first-child {
+  .Footer-start {
     flex: 1;
+    order: -1;    
   }
 
-  .Footer-nav > :first-child .Footer-link {
-    margin-left: -0.3rem;
+  .Footer-start .Footer-link {
+    margin-left: -0.2rem;
   }
 }

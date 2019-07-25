@@ -64,34 +64,35 @@ function slices (slice, index, list, onclick) {
     case 'line': {
       return html`
         <div class="u-container">
-          <hr class="u-padded">
+          <hr>
         </div>
       `
     }
     case 'video': {
-      if (!slice.primary.image.url) return null
-      let image = slice.primary.image
-      let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
-      if (!/\.(svg|gif?)$/.test(image.url)) {
-        attrs.sizes = '100vw'
-        attrs.srcset = srcset(
-          image.url,
-          [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
-        )
-      }
+      return null
+      // if (!slice.primary.image.url) return null
+      // let image = slice.primary.image
+      // let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
+      // if (!/\.(svg|gif?)$/.test(image.url)) {
+      //   attrs.sizes = '100vw'
+      //   attrs.srcset = srcset(
+      //     image.url,
+      //     [640, 750, 1125, 1440, [2880, 'q_50'], [3840, 'q_50']]
+      //   )
+      // }
 
-      return html`
-        <div class="u-lg-container">
-          <div class="u-video">
-            <img ${attrs} src="${src(slice.primary.image.url, 800)}">
-            <video preload="metadata" controls disablePictureInPicture playsinline muted width="960" height="540" class="u-video" poster="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
-              <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_h265,w_960/v1563978786/trimmed_dhpmkk.mp4" type="video/mp4; codecs=hvc1">
-              <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_vp9,w_960/v1563978786/trimmed_dhpmkk.webm" type="video/webm; codecs=vp9">
-              <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_auto,w_960/v1563978786/trimmed_dhpmkk.mp4" type="video/mp4"> 
-            </video>
-          </div>
-        </div>
-      `
+      // return html`
+      //   <div class="u-lg-container">
+      //     <div class="u-video">
+      //       <img ${attrs} src="${src(slice.primary.image.url, 800)}">
+      //       <video preload="metadata" controls disablePictureInPicture playsinline muted width="960" height="540" class="u-video" poster="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+      //         <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_h265,w_960/v1563978786/trimmed_dhpmkk.mp4" type="video/mp4; codecs=hvc1">
+      //         <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_vp9,w_960/v1563978786/trimmed_dhpmkk.webm" type="video/webm; codecs=vp9">
+      //         <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_auto,w_960/v1563978786/trimmed_dhpmkk.mp4" type="video/mp4">
+      //       </video>
+      //     </div>
+      //   </div>
+      // `
     }
     default: return null
   }
