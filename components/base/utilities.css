@@ -1,10 +1,6 @@
-@import "../global";
+@import "./global";
 
 /* @define utilities */
-.u-hidden {
-  display: none !important;
-}
-
 .u-hiddenVisually {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important;
@@ -64,4 +60,33 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+}
+
+/**
+ * Transitions
+ */
+
+.u-slideDown {
+  opacity: 0;
+  animation: slide-down 300ms cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-1.5rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/**
+ * Text
+ */
+
+.u-textNowrap {
+  white-space: nowrap !important;
 }

@@ -1,7 +1,6 @@
 @import "normalize.css";
 @import "./global";
-@import "./utilities/layout";
-@import "./utilities/transitions";
+@import "./utilities";
 
 /**
  * Font declaration
