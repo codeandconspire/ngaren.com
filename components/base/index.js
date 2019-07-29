@@ -1,27 +1,3 @@
-// resolve prismic document url
-// obj -> str
-exports.resolve = resolve
-function resolve (doc) {
-  var root = ''
-  var parent = doc.data && doc.data.parent
-  if (parent && parent.id && !parent.isBroken) {
-    root = `/${parent.uid}`
-  }
-
-  switch (doc.type) {
-    case 'website':
-    case 'page': return `${root}/${doc.uid}`
-    case 'Web':
-    case 'Media': return doc.url
-    default: {
-      // handle links to web and media
-      let type = doc.link_type
-      if (type === 'Web' || type === 'Media' || type === 'Any') return doc.url
-      throw new Error(`Could not resolve href for document type "${doc.type}"`)
-    }
-  }
-}
-
 // detect if meta key was pressed on event
 // obj -> bool
 exports.metaKey = metaKey

@@ -1,7 +1,6 @@
 var html = require('choo/html')
 var asElement = require('prismic-element')
-var embed = require('../embed')
-var { resolve, srcset, src } = require('../base')
+var { srcset, src } = require('../base')
 
 module.exports = slices
 var odd = false
@@ -25,7 +24,7 @@ function slices (slice, index, list, onclick) {
         <div class="u-container">
           <div class="u-padded">
             <div class="Slice">
-              ${asElement(slice.primary.text, resolve)}
+              ${asElement(slice.primary.text)}
             </div>
           </div>
         </div>
@@ -40,14 +39,14 @@ function slices (slice, index, list, onclick) {
 
       return html`
         <div class="Slice Slice--image">
-          <figure class="Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
+          <figure class="Slice-figure" style="padding-bottom: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
             <img ${attrs} src="${src(slice.primary.image.url, 640)}">
           </figure>
         </div>
       `
     }
     case 'hero': {
-      if (!slice.primary.text.length || !slice.primary.image.url) return null
+      if (!slice.primary.image.url || !slice.primary.text.length) return null
       let image = slice.primary.image
       let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
       attrs.sizes = '(min-midth: 1000px) 40vw, 98vw'
@@ -58,10 +57,10 @@ function slices (slice, index, list, onclick) {
           <div class="u-padded">
             <div class="Slice Slice--hero">
               <div class="Slice Slice-body">
-                ${asElement(slice.primary.text, resolve)}
+                ${asElement(slice.primary.text)}
               </div>
               <div class="Slice-aside">
-                <figure class="Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
+                <figure class="Slice-figure" style="padding-bottom: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
                   <img ${attrs} src="${src(slice.primary.image.url, 640)}">
                 </figure>
               </div>
@@ -74,20 +73,21 @@ function slices (slice, index, list, onclick) {
       if (!slice.primary.image.url || !slice.primary.text.length) return null
       let image = slice.primary.image
       let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
+      odd = !odd
       attrs.sizes = '(min-midth: 600px) 10vw, 98vw'
       attrs.srcset = srcset(image.url, [320, 360, 640, 720, 900, 1080, 1300, 1440, 2000])
 
       return html`
         <div class="u-container">
           <div class="u-padded">
-            <div class="Slice Slice--person ${(odd = !odd) ? '' : 'Slice--alt'}">
+            <div class="Slice Slice--person ${(odd) ? '' : 'Slice--alt'}">
               <div class="Slice-aside">
-                <figure class="Slice-figure" style="padding-bottom: ${(image.dimensions.height / image.dimensions.width * 100).toFixed(2)}%;">
+                <figure class="Slice-figure" style="padding-bottom: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
                   <img ${attrs} src="${src(slice.primary.image.url, 640)}">
                 </figure>
               </div>
               <div class="Slice Slice-body">
-                ${asElement(slice.primary.text, resolve)}
+                ${asElement(slice.primary.text)}
               </div>
             </div>
           </div>
@@ -96,6 +96,7 @@ function slices (slice, index, list, onclick) {
     }
     case 'gallery': {
       if (!slice.items.length) return null
+      even = !even
       var images = slice.items.map(function (item) {
         if (!item.image.url) return
         let attrs = Object.assign({ alt: item.image.alt || '' }, item.image.dimensions)
@@ -113,7 +114,7 @@ function slices (slice, index, list, onclick) {
       return html`
         <div class="u-container">
           <div class="u-padded">
-            <div class="Slice Slice--gallery ${(even = !even) ? '' : 'Slice--alt'}">
+            <div class="Slice Slice--gallery ${(even) ? '' : 'Slice--alt'}">
               ${images}
             </div>
           </div>
@@ -122,25 +123,6 @@ function slices (slice, index, list, onclick) {
     }
     case 'video': {
       return null
-      // if (!slice.primary.image.url) return null
-      // let image = slice.primary.image
-      // let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
-      // attrs.sizes = '100vw'
-      // attrs.srcset = srcset(image.url, [640, 750, 1125, 1440, 2880, 3840]
-      // )
-
-      // return html`
-      //   <div class="u-lg-container">
-      //     <div class="u-video">
-      //       <img ${attrs} src="${src(slice.primary.image.url, 800)}">
-      //       <video preload="metadata" controls disablePictureInPicture playsinline muted width="960" height="540" class="u-video" poster="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
-      //         <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_h265,w_960/v1563978786/trimmed_dhpmkk.mp4" type="video/mp4; codecs=hvc1">
-      //         <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_vp9,w_960/v1563978786/trimmed_dhpmkk.webm" type="video/webm; codecs=vp9">
-      //         <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_auto,w_960/v1563978786/trimmed_dhpmkk.mp4" type="video/mp4">
-      //       </video>
-      //     </div>
-      //   </div>
-      // `
     }
     default: return null
   }

@@ -42,10 +42,20 @@
 }
 
 .Header-nav {
+  position: relative;
   display: flex;
   justify-content: space-between;
   border-top: 1px solid;
   padding-top: 0.8rem;
+}
+
+@media (max-width: 699px) {
+  .Header li:nth-child(2) {
+    position: absolute;
+    top: 0.8rem;
+    left: calc(50% - 0.35em);
+    transform: translateX(-50%);
+  }
 }
 
 .Header-link {
