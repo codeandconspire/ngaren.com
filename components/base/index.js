@@ -1,3 +1,28 @@
+var html = require('choo/html')
+var { Elements } = require('prismic-richtext')
+
+exports.mask = mask
+function mask (className) {
+  return html`
+    <svg class="${className}" role="presentation" preserveAspectRatio="none" viewBox="0 0 1113 91">
+      <g fill="none" fill-rule="evenodd">
+        <path fill="#FFF" d="M364 43V5l393 76V43h356v48H0V43z"/>
+        <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M5 43h358V5l394 76V43h351"/>
+      </g>
+    </svg>
+  `
+}
+
+exports.serialize = serialize
+function serialize (type, node, content, children) {
+  switch (type) {
+    case Elements.em: {
+      return html`<span class="u-textNowrap">${content}</span>`
+    }
+    default: return null
+  }
+}
+
 // detect if meta key was pressed on event
 // obj -> bool
 exports.metaKey = metaKey
@@ -10,7 +35,7 @@ function metaKey (e) {
 // (str, num, obj?) -> str
 exports.src = src
 function src (uri, size) {
-  var q = (size > 1000) ? 'q_22' : 'q_30'
+  var q = (size > 1000) ? 'q_25' : 'q_30'
   var transforms = `c_fill,f_auto,${q}`
 
   // trim prismic domain from uri
