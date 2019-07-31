@@ -1,6 +1,5 @@
 var html = require('choo/html')
-var asElement = require('prismic-element')
-var { srcset, src, serialize, mask } = require('../base')
+var { srcset, src, asElement, mask } = require('../base')
 
 module.exports = slices
 var odd = false
@@ -13,7 +12,24 @@ function slices (slice, index, list, onclick) {
     }
     case 'line': {
       return html`
-        <div class="u-container"><div class="Slice--divider"><hr class="u-hiddenVisually" /></div></div>
+        <div class="u-container">
+          <div class="u-padded">
+            <div class="Slice Slice--divider">
+              <hr class="u-hiddenVisually" />
+              <svg class="Slice-repeat" preserveAspectRatio="none" style="display: none;" role="presentation" viewBox="0 0 371 88">
+                <g fill="none" fill-rule="evenodd">
+                  <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M0 44h371"/>
+                </g>
+              </svg>
+              <svg class="Slice-symbol" style="display: none;" role="presentation" viewBox="0 0 365 88">
+                <g fill="none" fill-rule="evenodd">
+                  <path fill="#fff" d="M.5 0h363.5v88H.5z"/>
+                  <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M5 44h118V5l121 78V44h116"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
       `
     }
     case 'text': {
@@ -22,7 +38,7 @@ function slices (slice, index, list, onclick) {
         <div class="u-container">
           <div class="u-padded">
             <div class="Slice">
-              ${asElement(slice.primary.text, false, serialize)}
+              ${asElement(slice.primary.text, (doc) => doc.url || '/')}
             </div>
           </div>
         </div>
@@ -37,8 +53,8 @@ function slices (slice, index, list, onclick) {
 
       return html`
         <div class="Slice Slice--image">
-          <figure class="Slice-figure" style="padding-bottom: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
-            <img ${attrs} src="${src(slice.primary.image.url, 640)}" />
+          <figure class="Slice-figure" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
+            <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
           </figure>
         </div>
       `
@@ -55,11 +71,11 @@ function slices (slice, index, list, onclick) {
           <div class="u-padded">
             <div class="Slice Slice--hero">
               <div class="Slice Slice-body">
-                ${asElement(slice.primary.text, false, serialize)}
+                ${asElement(slice.primary.text, (doc) => doc.url || '/')}
               </div>
               <div class="Slice-aside">
-                <figure class="Slice-figure Slice-figure--mask" style="padding-bottom: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
-                  <img ${attrs} src="${src(slice.primary.image.url, 640)}" />
+                <figure class="Slice-figure Slice-figure--mask" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
+                  <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
                   ${mask('Slice-mask')}
                 </figure>
               </div>
@@ -81,13 +97,13 @@ function slices (slice, index, list, onclick) {
           <div class="u-padded">
             <div class="Slice Slice--person ${(odd) ? '' : 'Slice--alt'}">
               <div class="Slice-aside">
-                <figure class="Slice-figure Slice-figure--mask" style="padding-bottom: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
-                  <img ${attrs} src="${src(slice.primary.image.url, 640)}" />
+                <figure class="Slice-figure Slice-figure--mask" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
+                  <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
                   ${mask('Slice-mask')}
                 </figure>
               </div>
               <div class="Slice Slice-body">
-                ${asElement(slice.primary.text, false, serialize)}
+                ${asElement(slice.primary.text, (doc) => doc.url || '/')}
               </div>
             </div>
           </div>
@@ -105,8 +121,8 @@ function slices (slice, index, list, onclick) {
         attrs.srcset = srcset(item.image.url, [150, 200, 320, 360, 640, 720, 900, 1080, 1300, 1440])
         return html`
           <div class="Slice-item">
-            <figure class="Slice-figure ${masked ? 'Slice-figure--mask' : null}" style="padding-bottom: ${(item.image.dimensions.height / item.image.dimensions.width * 100).toFixed(2)}%;">
-              <img ${attrs} src="${src(item.image.url, 640)}" />
+            <figure class="Slice-figure ${masked ? 'Slice-figure--mask' : null}" style="--aspect: ${(item.image.dimensions.height / item.image.dimensions.width * 100).toFixed(2)}%;">
+              <img style="max-width: 100%; height: auto;" ${attrs} src="${src(item.image.url, 640)}" />
               ${masked ? mask('Slice-mask') : null}
             </figure>
           </div>

@@ -65,7 +65,7 @@
     "normalize.css": "^8.0.1",
     "postcss-custom-properties": "^8.0.9",
     "postcss-url": "^8.0.0",
-    "prismic-element": "^1.0.0",
+    "prismic-helpers": "^1.0.0",
     "prismic-javascript": "^2.0.1",
     "prismic-richtext": "^0.4.2"
   }

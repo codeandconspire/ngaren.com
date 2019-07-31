@@ -3,37 +3,21 @@
 /* @define Slice */
 .Slice {
   margin: var(--document-margin) 0;
-  --mask-height: 1.56rem;
-  --mask-stroke-width: 3px;
-}
-
-@media (min-width: 700px) {
-  .Slice {
-    --mask-stroke-width: 4px;
-  }
-}
-
-@media (min-width: 1000px) {
-  .Slice {
-    --mask-height: 1.875rem;
-    --mask-stroke-width: 4px;
-  }
-}
-
-@media (min-width: 1100px) {
-  .Slice {
-    --mask-height: 2.37rem;
-    --mask-stroke-width: 5px;
-  }
 }
 
 .Slice-body {
   max-width: 88%;
 }
 
+/**
+ * Images
+ * 1. Override inline styles (that is hiding the items if css didn't load)
+ */
+
 .Slice-figure {
   position: relative;
   height: 0;
+  padding-bottom: var(--aspect);
   overflow: hidden;
   margin: 2.5rem 0 2.5rem;
   background: currentColor;
@@ -41,20 +25,26 @@
 }
 
 .Slice-figure--mask {
-  margin: 2.5rem 0 calc(2.5rem - var(--mask-height));
+  margin: 2.5rem 0 calc(2.5rem - var(--symbol-height));
+  box-shadow: none;
 }
 
 .Slice-mask {
+  display: block !important; /* 1 */
   position: absolute;
   bottom: 0;
   left: -1%;
   width: 102%;
-  height: var(--mask-height);
+  height: var(--symbol-height);
 }
 
 .Slice-mask path {
-  stroke-width: var(--mask-stroke-width);
+  stroke-width: var(--symbol-stroke-width);
 }
+
+/**
+ * Typography
+ */
 
 .Slice h1,
 .Slice h2,
@@ -85,7 +75,7 @@
 }
 
 /**
- * Hero
+ * Hero slice
  */
 
 @media (min-width: 1000px) {
@@ -122,7 +112,7 @@
 }
 
 /**
- * Person
+ * Person slice
  */
 
 .Slice--person .Slice-body {
@@ -186,7 +176,7 @@
   }
 
   .Slice--person .Slice-figure {
-    margin: var(--document-margin) 0 calc(var(--document-margin) - var(--mask-height));
+    margin: var(--document-margin) 0 calc(var(--document-margin) - var(--symbol-height));
   }
 }
 
@@ -211,7 +201,7 @@
 }
 
 /**
- * Gallery
+ * Gallery slice
  */
 
 .Slice--gallery {
@@ -292,9 +282,57 @@
 }
 
 /**
- * Space
+ * Space slice
  */
 
 .Slice--space {
   margin-bottom: calc(var(--document-margin) * 3);
+}
+
+/**
+ * Divider slice
+ * 1. Override inline styles (that is hiding the items if css didn't load)
+ */
+
+.Slice--divider {
+  position: relative;
+  height: var(--symbol-height);
+  margin-bottom: calc(var(--document-margin) * 3);
+}
+
+.Slice-symbol,
+.Slice-repeat {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block !important; /* 1 */
+}
+
+.Slice-symbol {
+  width: auto;
+}
+
+.Slice--divider path {
+  stroke-width: var(--symbol-stroke-width);
+}
+
+.Slice--divider {
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 1.8rem;
+}
+
+@media (min-width: 600px) {
+  .Slice--divider {
+    margin-top: 3.5rem;
+    margin-bottom: 3.3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .Slice--divider {
+    margin: 5rem 0 4.8rem;
+  }
 }

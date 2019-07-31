@@ -1,26 +1,74 @@
 var html = require('choo/html')
+var raw = require('choo/html/raw')
 var { Elements } = require('prismic-richtext')
+var PrismicRichText = require('prismic-richtext')
+var LinkHelper = require('prismic-helpers').Link
+
+function serialize (linkResolver, type, element, content, children) {
+  var attrs = {}
+  if (element.label) attrs.class = element.label
+
+  switch (type) {
+    case Elements.heading1: return html`<h1 ${attrs}>${children}</h1>`
+    case Elements.heading2: return html`<h2 ${attrs}>${children}</h2>`
+    case Elements.heading3: return html`<h3 ${attrs}>${children}</h3>`
+    case Elements.paragraph: return html`<p ${attrs}>${children}</p>`
+    case Elements.preformatted: return html`<pre ${attrs}>${children}</pre>`
+    case Elements.strong: return html`<strong ${attrs}>${children}</strong>`
+    case Elements.em: return html`<span class="u-textNowrap">${content}</span>`
+    case Elements.listItem:
+    case Elements.oListItem: return html`<li ${attrs}>${children}</li>`
+    case Elements.list: return html`<ul ${attrs}>${children}</ul>`
+    case Elements.oList: return html`<ol ${attrs}>${children}</ol>`
+    case Elements.hyperlink: return serializeHyperlink(linkResolver, element, children)
+    case Elements.label: return serializeLabel(element, children)
+    case Elements.span: return serializeSpan(content)
+    default: return null
+  }
+}
+
+function serializeHyperlink (linkResolver, element, children) {
+  var href = LinkHelper.url(element.data, linkResolver)
+  if (element.data.target && element.data.target === '_blank') {
+    return html`<a href="${href}" target="_blank" rel="noopener noreferrer">${children}</a>`
+  }
+  return html`<a href="${LinkHelper.url(element.data, linkResolver)}">${children}</a>`
+}
+
+function serializeLabel (element, children) {
+  var attrs = {}
+  if (element.data.label) attrs.class = element.data.label
+  return html`<span ${attrs}>${children}</span>`
+}
+
+function serializeSpan (content) {
+  if (content && content.indexOf('\n') !== -1) {
+    return raw(content.replace(/\n/g, '<br />'))
+  }
+  return content
+}
+
+exports.asElement = asElement
+function asElement (richText, linkResolver, serializer) {
+  var element = PrismicRichText.serialize(richText, serialize.bind(null, linkResolver), serializer)
+
+  if (element.length === 1) {
+    return element[0]
+  }
+
+  return element
+}
 
 exports.mask = mask
 function mask (className) {
   return html`
-    <svg class="${className}" role="presentation" preserveAspectRatio="none" viewBox="0 0 1113 91">
+    <svg class="${className}" role="presentation" style="display: none;" preserveAspectRatio="none" viewBox="0 0 365 88">
       <g fill="none" fill-rule="evenodd">
-        <path fill="#FFF" d="M364 43V5l393 76V43h356v48H0V43z"/>
-        <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M5 43h358V5l394 76V43h351"/>
+      <path fill="#FFF" d="M123 44V5l121 78V44h121v44H0V44z"/>
+        <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M5 44h118V5l121 78V44h116"/>
       </g>
     </svg>
   `
-}
-
-exports.serialize = serialize
-function serialize (type, node, content, children) {
-  switch (type) {
-    case Elements.em: {
-      return html`<span class="u-textNowrap">${content}</span>`
-    }
-    default: return null
-  }
 }
 
 // detect if meta key was pressed on event
@@ -35,7 +83,7 @@ function metaKey (e) {
 // (str, num, obj?) -> str
 exports.src = src
 function src (uri, size) {
-  var q = (size > 1000) ? 'q_25' : 'q_30'
+  var q = (size > 1000) ? 'q_25' : 'q_40'
   var transforms = `c_fill,f_auto,${q}`
 
   // trim prismic domain from uri
