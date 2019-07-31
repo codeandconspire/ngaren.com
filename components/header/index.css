@@ -3,90 +3,94 @@
 /* @define Header */
 .Header {
   user-select: none;
-  letter-spacing: 0.3em;
   text-transform: uppercase;
-  font-size: 0.8125rem;
+  font-size: 0.84375rem;
   margin: 1rem 0 0.5rem;
   font-weight: bold;
   text-align: center;
-}
-
-@media (min-width: 500px) {
-  .Header {
-    letter-spacing: 0.5em;
-  }
 }
 
 .Header-start {
   text-align: center;
   position: relative;
   display: inline-block;
-  padding: 2.1em 0 1rem;
-  margin-left: -0.2em;
+  padding-bottom: 0.7rem;
 }
 
-.Header-icon {
-  position: absolute;
-  width: calc(100% - 0.3em);
-  top: 0;
+.Header-logotype {
+  display: flex;
+  justify-content: space-between;
 }
 
-@media (min-width: 500px) {
-  .Header-icon {
-    width: calc(100% - 0.5em);
-  }
+.Header-symbol {
+  display: block;
+  height: var(--symbol-height);
+  margin-bottom: 0.5em;
+}
 
-  .Header-start {
-    padding-top: 2.4em;
-  }
+.Header path {
+  stroke-width: var(--symbol-stroke-width);
 }
 
 .Header-nav {
-  position: relative;
   display: flex;
   justify-content: space-between;
   border-top: 1px solid;
-  padding-top: 0.8rem;
+  padding-top: 0.8em;
+  letter-spacing: 0.4em;
+  font-weight: 600;
 }
 
-@media (max-width: 699px) {
-  .Header li:nth-child(2) {
-    position: absolute;
-    top: 0.8rem;
-    left: calc(50% - 0.35em);
-    transform: translateX(-50%);
+.Header-nav > :last-child {
+  margin-right: -0.4em;
+}
+
+@media (min-width: 350px) {
+  .Header-nav {
+    letter-spacing: 0.5em;
+  }
+
+  .Header-nav > :last-child {
+    margin-right: -0.5em;
   }
 }
 
 .Header-link {
   display: block;
-  padding: 0.3rem;
-  margin: 0 -0.7rem 0 -0.3rem;
+  padding: 0.7em 0;
 }
 
 @media (min-width: 700px) {
   .Header {
+    position: relative;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-top: 3px solid;
+    align-items: flex-end;
     margin-top: var(--document-margin);
-    padding-top: 1.5rem;
+  }
+
+  .Header-repeat {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block !important;
+    width: 100%;
+    height: var(--symbol-height);
   }
 
   .Header-start {
-    font-size: 1.4em;
-    padding: 0.3rem;
+    font-size: 1.25em;
   }
 
-  .Header-icon {
-    display: none;
+  .Header-symbol {
+    overflow: visible;
   }
 
   .Header-nav {
     justify-content: flex-end;
-    padding: 0;
+    padding: 0 0 0.1em 0;
     border: 0;
+    font-weight: bold;
   }
 
   .Header-link {
@@ -94,9 +98,13 @@
   }
 }
 
-@media (min-width: 1200px) {
-  .Header {
-    font-size: 1rem;
+@media (min-width: 1100px) {
+  .Header-start {
+    font-size: 1.6em;
+  }
+
+  .Header-nav {
+    padding: 0 0 0.4em 0;
   }
 }
 
