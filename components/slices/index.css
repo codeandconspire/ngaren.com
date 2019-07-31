@@ -53,7 +53,8 @@
   max-width: 15em;
 }
 
-.Slice img {
+.Slice img,
+.Slice video {
   position: absolute;
   top: 0;
   left: 0;
@@ -335,4 +336,15 @@
   .Slice--divider {
     margin: 5rem 0 4.8rem;
   }
+}
+
+/**
+ * Video slice
+ * Use with .Slice--image
+ */
+
+.Slice-video {
+  /* position: absolute;
+  top: 0;
+  left: 0; */
 }

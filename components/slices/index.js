@@ -140,7 +140,24 @@ function slices (slice, index, list, onclick) {
       `
     }
     case 'video': {
-      return null
+      if (!slice.primary.image.url) return null
+      let image = slice.primary.image
+      let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
+      attrs.sizes = '100vw'
+      attrs.srcset = srcset(image.url, [320, 360, 640, 720, 1080, 1300, 1440, 2000, 2600])
+
+      return html`
+        <div class="Slice Slice--image Slice--video">
+          <figure class="Slice-figure" style="--aspect: ${((720 / 1280) * 100).toFixed(2)}%;">
+            <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
+            <video style="max-width: 100%; height: auto;" preload="metadata" controls disablePictureInPicture playsinline muted loop width="960" height="540" poster="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+              <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_h265,w_960/v1563978786/trimmed_dhpmkk.mp4" type="video/mp4; codecs=hvc1">
+              <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_vp9,w_960/v1563978786/trimmed_dhpmkk.webm" type="video/webm; codecs=vp9">
+              <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_auto,w_960/v1563978786/trimmed_dhpmkk.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+      `
     }
     default: return null
   }
