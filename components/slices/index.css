@@ -6,7 +6,7 @@
 }
 
 .Slice-body {
-  max-width: 88%;
+  max-width: 89%;
 }
 
 /**
@@ -29,13 +29,24 @@
   box-shadow: none;
 }
 
+.Slice-figure--mask::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  background: #fff;
+  width: 100%;
+}
+
 .Slice-mask {
   display: block !important; /* 1 */
   position: absolute;
   bottom: 0;
-  left: -1%;
-  width: 102%;
+  left: -1.5%;
+  width: 103%;
   height: var(--symbol-height);
+  z-index: 1;
 }
 
 .Slice-mask path {
@@ -60,13 +71,19 @@
   left: 0;
   display: block;
   width: 100%;
-  height: 100%;
+  height: 100% !important;
 }
 
 .Slice a {
   border-bottom: 1px solid;
   color: #a7a7a7;
   display: inline-block;
+  transition: color 200ms var(--ease);
+}
+
+.Slice a:active {
+  color: #ccc;
+  transition: none;
 }
 
 @media (min-width: 600px) {
@@ -79,12 +96,22 @@
  * Hero slice
  */
 
+.Slice--hero img,
+.Slice--hero video {
+  object-fit: cover;
+  object-position: center;
+}
+
 @media (min-width: 1000px) {
   .Slice--hero {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 0;
+  }
+
+  .Slice--hero a {
+    position: absolute;
   }
 
   .Slice--hero .Slice-body {
@@ -96,13 +123,22 @@
     max-width: 8em;
   }
 
+  .Slice--hero .Slice-body > :first-child {
+    margin-top: 0;
+  }
+
+  .Slice--hero .Slice-body > :last-child {
+    margin-bottom: 0;
+  }
+
   .Slice--hero .Slice-aside {
+    position: relative;
     padding-left: 2rem;
     flex: 1 1 50%;
   }
 
   .Slice--hero .Slice-figure {
-    margin: var(--document-margin) 0 calc(var(--document-margin) - 44px);
+    margin: 1.5rem 0;
   }
 }
 
@@ -233,7 +269,7 @@
 }
 
 .Slice--gallery.Slice--alt .Slice-item:nth-child(2) {
-  width: 70%;
+  width: 65%;
   margin-left: auto;
 }
 
@@ -287,7 +323,17 @@
  */
 
 .Slice--space {
-  margin-bottom: calc(var(--document-margin) * 3);
+  margin-bottom: calc(var(--document-margin) * 1.4);
+}
+
+.Slice--space:last-child {
+  margin-bottom: 10vh;
+}
+
+@media (min-width: 1000px) {
+  .Slice--space:last-child {
+    margin-bottom: calc(var(--document-margin) * 2);
+  } 
 }
 
 /**
@@ -343,8 +389,65 @@
  * Use with .Slice--image
  */
 
-.Slice-video {
-  /* position: absolute;
+.Slice--video {
+  position: relative;
+}
+
+.Slice--video::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
   top: 0;
-  left: 0; */
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 600ms var(--ease);
+  opacity: 0.98;
+  pointer-events: none;
+}
+
+.Slice--video:hover::after {
+  opacity: 0.1;
+}
+
+.Slice-play {
+  display: block !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--symbol-height) * 3.85);
+  height: auto;
+  color: #fff;
+  transition: color 300ms var(--ease);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.Slice--video img {
+  transition: transform 600ms var(--ease);
+  will-change: transform;
+  transform-origin: center;
+}
+
+.Slice--video:hover img {
+  transform: scale(1.025);
+}
+
+.Slice--video:active .Slice-play {
+  color: rgba(255, 255, 255, 0.5);
+  transition: none;
+}
+
+.Slice-play path {
+  stroke-width: var(--symbol-stroke-width);
+}
+
+/**
+ * Image slice
+ */
+
+.Slice--image,
+.Slice--image > .Slice-figure {
+  margin-bottom: 0 !important;
 }

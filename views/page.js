@@ -1,7 +1,7 @@
 var html = require('choo/html')
 var view = require('../components/view')
 var slices = require('../components/slices')
-var { asText, src, HTTPError, metaKey } = require('../components/base')
+var { asText, src, HTTPError } = require('../components/base')
 
 module.exports = view(page, meta, 'page')
 
@@ -15,20 +15,10 @@ function page (state, emit) {
 
     return html`
       <main class="View-main">
-        ${doc.data.body.map((slice, index, list) => slices(slice, index, list, onclick))}
+        ${doc.data.body.map((slice, index, list) => slices(slice, index, list, state))}
       </main>
     `
   })
-
-  // create link handler, emitting pushState
-  // obj -> fn
-  function onclick (doc) {
-    return function (event) {
-      if (metaKey(event)) return
-      emit('pushState', event.currentTarget.href)
-      event.preventDefault()
-    }
-  }
 }
 
 function meta (state) {

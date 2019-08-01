@@ -42,12 +42,14 @@ function createView (view, getMeta) {
         emit('meta', { title: `Error – ${DEFAULT_TITLE}` })
       }
 
+      if (typeof document !== 'undefined') {
+        document.addEventListener('touchstart', function () {}, false)
+      }
+
       return html`
         <body class="View" id="view">
           <script type="application/ld+json">${raw(JSON.stringify(linkedData(state)))}</script>
-          <div class="u-container">
-            ${header()}
-          </div>
+          ${header()}
           ${children}
           <div class="u-container">
             ${footer()}

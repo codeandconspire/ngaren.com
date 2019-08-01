@@ -1,0 +1,10 @@
+@import "../base";
+
+/* @define Video */
+.Video {
+  opacity: 0;
+}
+
+.Video.is-ready {
+  opacity: 1;
+}

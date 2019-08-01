@@ -71,14 +71,6 @@ function mask (className) {
   `
 }
 
-// detect if meta key was pressed on event
-// obj -> bool
-exports.metaKey = metaKey
-function metaKey (e) {
-  if (e.button && e.button !== 0) return true
-  return e.ctrlKey || e.metaKey || e.altKey || e.shiftKey
-}
-
 // compose src attribute from url for a given size
 // (str, num, obj?) -> str
 exports.src = src

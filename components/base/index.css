@@ -37,7 +37,7 @@
   box-sizing: border-box; /* 1 */
   width: 100%; /* 2 */
   height: 100%; /* 3 */
-  overflow-x: hidden; /* 2 */
+  
   cursor: default; /* 4 */
   font-family: var(--document-font-family);
   background: rgb(var(--document-background-color)); /* 5 */

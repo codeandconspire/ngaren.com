@@ -1,11 +1,12 @@
 var html = require('choo/html')
 var { srcset, src, asElement, mask } = require('../base')
+var Video = require('../video')
 
 module.exports = slices
 var odd = false
 var even = false
 
-function slices (slice, index, list, onclick) {
+function slices (slice, index, list, state) {
   switch (slice.slice_type) {
     case 'space': {
       return html`<div class="Slice Slice--space"></div>`
@@ -72,10 +73,12 @@ function slices (slice, index, list, onclick) {
             <div class="Slice Slice--hero">
               <div class="Slice Slice-body">
                 ${asElement(slice.primary.text, (doc) => doc.url || '/')}
+                <strong><a href="/about">Get involved</a></strong>
               </div>
               <div class="Slice-aside">
-                <figure class="Slice-figure Slice-figure--mask" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
+                <figure class="Slice-figure Slice-figure--mask" style="--aspect: 108%;">
                   <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
+                  ${state.cache(Video, 'hero').render()}
                   ${mask('Slice-mask')}
                 </figure>
               </div>
@@ -150,11 +153,14 @@ function slices (slice, index, list, onclick) {
         <div class="Slice Slice--image Slice--video">
           <figure class="Slice-figure" style="--aspect: ${((720 / 1280) * 100).toFixed(2)}%;">
             <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
-            <video style="max-width: 100%; height: auto;" preload="metadata" controls disablePictureInPicture playsinline muted loop width="960" height="540" poster="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+            <video style="max-width: 100%; height: auto;" preload="metadata" disablePictureInPicture playsinline muted loop width="960" height="540" poster="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
               <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_h265,w_960/v1563978786/trimmed_dhpmkk.mp4" type="video/mp4; codecs=hvc1">
               <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_vp9,w_960/v1563978786/trimmed_dhpmkk.webm" type="video/webm; codecs=vp9">
               <source src="https://res.cloudinary.com/dykmd8idd/video/upload/s--9JroGugU--/vc_auto,w_960/v1563978786/trimmed_dhpmkk.mp4" type="video/mp4">
             </video>
+            <svg style="display: none;" class="Slice-play" viewBox="0 0 275 293">
+              <path vector-effect="non-scaling-stroke" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linejoin="round" stroke-width="10" d="M35 5l235 141.5L35 288v-95H5l60-93H35z"/>
+            </svg>
           </figure>
         </div>
       `

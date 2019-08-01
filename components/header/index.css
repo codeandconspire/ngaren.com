@@ -2,6 +2,10 @@
 
 /* @define Header */
 .Header {
+  position: sticky;
+  top: -4rem;
+  z-index: 10;
+  background: #fff;
   user-select: none;
   text-transform: uppercase;
   font-size: 0.84375rem;
@@ -15,11 +19,18 @@
   position: relative;
   display: inline-block;
   padding-bottom: 0.7rem;
+  transition: color 200ms var(--ease);
+}
+
+.Header-start:active {
+  color: #bbb;
+  transition: none;
 }
 
 .Header-logotype {
   display: flex;
   justify-content: space-between;
+  width: 101%;
 }
 
 .Header-symbol {
@@ -36,9 +47,8 @@
   display: flex;
   justify-content: space-between;
   border-top: 1px solid;
-  padding-top: 0.8em;
+  padding-top: 0.7em;
   letter-spacing: 0.4em;
-  font-weight: 600;
 }
 
 .Header-nav > :last-child {
@@ -57,16 +67,34 @@
 
 .Header-link {
   display: block;
-  padding: 0.7em 0;
+  padding: 0.8em 0;
+  transition: color 200ms var(--ease);
+}
+
+.Header-link:active {
+  color: #bbb;
+  transition: none;
 }
 
 @media (min-width: 700px) {
   .Header {
-    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-top: var(--document-margin);
+    position: relative;
+    top: 0;
+    margin: var(--document-margin) 0 0 var(--document-margin);
+    width: calc(100% - (var(--document-margin) * 2));
+  }
+
+  .Header > :first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .Header .u-container {
+    padding: 0 !important;
   }
 
   .Header-repeat {
@@ -86,15 +114,27 @@
     overflow: visible;
   }
 
+  .Header-symbol path:last-child {
+    stroke: #000;
+  }
+
   .Header-nav {
     justify-content: flex-end;
     padding: 0 0 0.1em 0;
     border: 0;
-    font-weight: bold;
   }
 
   .Header-link {
     margin-left: 2.6rem;
+    padding: 1em 0;
+    position: relative;
+    top: 0.5em;
+  }
+}
+
+@media (min-width: 800px) {
+  .Header {
+    margin-top: calc(var(--document-margin) - 1rem);
   }
 }
 
@@ -110,6 +150,11 @@
 
 @media (min-width: 1400px) {
   .Header {
+    font-size: 1rem;
     margin-bottom: 2rem;
+  }
+
+  .Header-start {
+    font-size: 1.4em;
   }
 }
