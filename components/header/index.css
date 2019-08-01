@@ -128,6 +128,7 @@
   }
 
   .Header-nav {
+    overflow: hidden;
     justify-content: flex-end;
     padding: 0 0 0.1em 0;
     border: 0;
@@ -141,6 +142,7 @@
     margin-left: 2.6rem;
     padding: 2.6em 0 1em;
     margin-bottom: -0.5em;
+    overflow: hidden;
   }
 
   .Header-link .Header-symbol {
@@ -148,7 +150,7 @@
     opacity: 0;
     position: absolute;
     top: 0;
-    left: 50%;
+    left: calc(50% - 0.5em);
     transform: translateX(-50%);
   }
 
