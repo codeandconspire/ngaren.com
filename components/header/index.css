@@ -19,7 +19,7 @@
   position: relative;
   display: inline-block;
   padding-bottom: 0.7rem;
-  transition: color 200ms var(--ease);
+  transition: color 400ms var(--ease);
 }
 
 .Header-start:active {
@@ -68,7 +68,11 @@
 .Header-link {
   display: block;
   padding: 0.8em 0;
-  transition: color 200ms var(--ease);
+  transition: color 400ms var(--ease);
+}
+
+.Header-link.is-active {
+  color: #999;
 }
 
 .Header-link:active {
@@ -80,7 +84,7 @@
   .Header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: normal;
     position: relative;
     top: 0;
     margin: var(--document-margin) 0 0 var(--document-margin);
@@ -95,6 +99,7 @@
 
   .Header .u-container {
     padding: 0 !important;
+    display: flex;
   }
 
   .Header-repeat {
@@ -110,6 +115,10 @@
     font-size: 1.25em;
   }
 
+  .Header-start:not(.is-active) .Header-symbol {
+    opacity: 0;
+  }
+
   .Header-symbol {
     overflow: visible;
   }
@@ -122,13 +131,33 @@
     justify-content: flex-end;
     padding: 0 0 0.1em 0;
     border: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 
   .Header-link {
-    margin-left: 2.6rem;
-    padding: 1em 0;
     position: relative;
-    top: 0.5em;
+    margin-left: 2.6rem;
+    padding: 2.6em 0 1em;
+    margin-bottom: -0.5em;
+  }
+
+  .Header-link .Header-symbol {
+    display: block !important;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .Header-link.is-active {
+    color: inherit;
+  }
+
+  .Header-link.is-active .Header-symbol {
+    opacity: 1;
   }
 }
 
@@ -143,8 +172,8 @@
     font-size: 1.6em;
   }
 
-  .Header-nav {
-    padding: 0 0 0.4em 0;
+  .Header-link {
+    padding: 3.2em 0 1em;
   }
 }
 

@@ -78,7 +78,7 @@
   border-bottom: 1px solid;
   color: #a7a7a7;
   display: inline-block;
-  transition: color 200ms var(--ease);
+  transition: color 400ms var(--ease);
 }
 
 .Slice a:active {
@@ -139,12 +139,23 @@
 
   .Slice--hero .Slice-figure {
     margin: 1.5rem 0;
+    top: 2rem;
   }
 }
 
 @media (min-width: 1400px) {
   .Slice--hero .Slice-aside {
     flex: 1 1 41%;
+  }
+
+  .Slice--hero .Slice-figure {
+    top: -1rem;
+  }
+}
+
+@media (min-width: 2000px) {
+  .Slice--hero .Slice-figure {
+    top: 2rem;
   }
 }
 
