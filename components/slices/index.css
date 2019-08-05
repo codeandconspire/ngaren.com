@@ -10,6 +10,27 @@
 }
 
 /**
+ * Text
+ */
+
+:root[scripting-enabled] .Slice-intersector {
+  opacity: 0.00001;
+  transform: translateY(25%);
+  will-change: opacity, transform;
+}
+
+.Slice-intersector.is-inview {
+  animation: Slice-intersector--appearing 1200ms calc(100ms * var(--Slice-item-index, 0) + 150ms) forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+@keyframes Slice-intersector--appearing {
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+/**
  * Images
  * 1. Override inline styles (that is hiding the items if css didn't load)
  */
@@ -110,7 +131,7 @@
     margin: 0;
   }
 
-  .Slice--hero a {
+  .Slice--hero strong.Slice-intersector {
     position: absolute;
   }
 
@@ -344,7 +365,7 @@
 @media (min-width: 1000px) {
   .Slice--space:last-child {
     margin-bottom: calc(var(--document-margin) * 2);
-  } 
+  }
 }
 
 /**

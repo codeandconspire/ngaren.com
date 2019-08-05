@@ -1,19 +1,48 @@
 var html = require('choo/html')
-var { srcset, src, asElement, mask } = require('../base')
+var Component = require('choo/component')
+var onintersect = require('on-intersect')
+var asElement = require('prismic-element')
+var { Elements } = require('prismic-richtext')
+var { srcset, src, mask, resolve } = require('../base')
 var Video = require('../video')
 
 module.exports = slices
 var odd = false
 var even = false
 
+class Intersector extends Component {
+  constructor (id) {
+    super(id)
+    this.id = id
+  }
+
+  update () {
+    return false
+  }
+
+  load (el) {
+    if ('IntersectionObserver' in window) {
+      this.unload = onintersect(el, function (event) {
+        event.target.classList.add('is-inview')
+      })
+    } else {
+      el.classList.add('is-inview')
+    }
+  }
+
+  createElement (render) {
+    return render({ id: this.id, class: 'Slice-intersector' })
+  }
+}
+
 function slices (slice, index, list, state) {
   switch (slice.slice_type) {
     case 'space': {
-      return html`<div class="Slice Slice--space"></div>`
+      return html`<div class="Slice Slice--space" id="slice-${index}"></div>`
     }
     case 'line': {
       return html`
-        <div class="u-container">
+        <div class="u-container" id="slice-${index}">
           <div class="u-padded">
             <div class="Slice Slice--divider">
               <hr class="u-hiddenVisually" />
@@ -36,10 +65,10 @@ function slices (slice, index, list, state) {
     case 'text': {
       if (!slice.primary.text.length) return null
       return html`
-        <div class="u-container">
+        <div class="u-container" id="slice-${index}">
           <div class="u-padded">
-            <div class="Slice">
-              ${asElement(slice.primary.text, (doc) => doc.url || '/')}
+            <div class="Slice Slice--text">
+              ${asElement(slice.primary.text, resolve, appearSerializer)}
             </div>
           </div>
         </div>
@@ -53,9 +82,11 @@ function slices (slice, index, list, state) {
       attrs.srcset = srcset(image.url, [320, 360, 640, 720, 1080, 1300, 1440, 2000, 2600])
 
       return html`
-        <div class="Slice Slice--image">
+        <div class="Slice Slice--image" id="slice-${index}">
           <figure class="Slice-figure" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
-            <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
+            ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
+              return html`<img id="${props.id}" class="${props.class}" style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />`
+            })}
           </figure>
         </div>
       `
@@ -68,19 +99,25 @@ function slices (slice, index, list, state) {
       attrs.srcset = srcset(image.url, [320, 360, 640, 720, 900, 1080, 1300, 1440, 2000])
 
       return html`
-        <div class="u-container">
+        <div class="u-container" id="slice-${index}">
           <div class="u-padded">
             <div class="Slice Slice--hero">
               <div class="Slice Slice-body">
-                ${asElement(slice.primary.text, (doc) => doc.url || '/')}
-                <strong><a href="/about">Get involved</a></strong>
+                ${asElement(slice.primary.text, resolve, appearSerializer)}
+                ${state.cache(Intersector, `hero-${index}-cta`).render(function (props) {
+                  return html`<strong ${props}><a href="/about">Get involved</a></strong>`
+                })}
               </div>
               <div class="Slice-aside">
-                <figure class="Slice-figure Slice-figure--mask" style="--aspect: 108%;">
-                  <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
-                  ${state.cache(Video, 'hero').render()}
-                  ${mask('Slice-mask')}
-                </figure>
+                ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
+                  return html`
+                    <figure id="${props.id}" class="Slice-figure Slice-figure--mask ${props.class}" style="--aspect: 108%;">
+                      <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
+                      ${state.cache(Video, 'hero').render()}
+                      ${mask('Slice-mask')}
+                    </figure>
+                  `
+                })}
               </div>
             </div>
           </div>
@@ -90,23 +127,27 @@ function slices (slice, index, list, state) {
     case 'person': {
       if (!slice.primary.image.url || !slice.primary.text.length) return null
       let image = slice.primary.image
-      let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
+      let img = Object.assign({ alt: image.alt || '' }, image.dimensions)
       odd = !odd
-      attrs.sizes = '(min-midth: 600px) 10vw, 98vw'
-      attrs.srcset = srcset(image.url, [320, 360, 640, 720, 900, 1080, 1300, 1440, 2000])
+      img.sizes = '(min-midth: 600px) 10vw, 98vw'
+      img.srcset = srcset(image.url, [320, 360, 640, 720, 900, 1080, 1300, 1440, 2000])
 
       return html`
-        <div class="u-container">
+        <div class="u-container" id="slice-${index}">
           <div class="u-padded">
             <div class="Slice Slice--person ${(odd) ? '' : 'Slice--alt'}">
               <div class="Slice-aside">
-                <figure class="Slice-figure Slice-figure--mask" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
-                  <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
-                  ${mask('Slice-mask')}
-                </figure>
+                ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
+                  return html`
+                    <figure id="${props.id}" class="Slice-figure Slice-figure--mask ${props.class}" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
+                      <img style="'max-width: 100%; height: auto;'" ${img} src="${src(slice.primary.image.url, 640)}" />
+                      ${mask('Slice-mask')}
+                    </figure>
+                  `
+                })}
               </div>
               <div class="Slice Slice-body">
-                ${asElement(slice.primary.text, (doc) => doc.url || '/')}
+                ${asElement(slice.primary.text, resolve, appearSerializer)}
               </div>
             </div>
           </div>
@@ -116,24 +157,26 @@ function slices (slice, index, list, state) {
     case 'gallery': {
       if (!slice.items.length) return null
       even = !even
-      var images = slice.items.map(function (item) {
+      var images = slice.items.map(function (item, i) {
         if (!item.image.url) return
-        let attrs = Object.assign({ alt: item.image.alt || '' }, item.image.dimensions)
+        let img = Object.assign({ alt: item.image.alt || '' }, item.image.dimensions)
         let masked = item.masked.toLowerCase() === 'masked'
-        attrs.sizes = '(min-midth: 600px) 28vw, 70vw'
-        attrs.srcset = srcset(item.image.url, [150, 200, 320, 360, 640, 720, 900, 1080, 1300, 1440])
-        return html`
-          <div class="Slice-item">
-            <figure class="Slice-figure ${masked ? 'Slice-figure--mask' : null}" style="--aspect: ${(item.image.dimensions.height / item.image.dimensions.width * 100).toFixed(2)}%;">
-              <img style="max-width: 100%; height: auto;" ${attrs} src="${src(item.image.url, 640)}" />
-              ${masked ? mask('Slice-mask') : null}
-            </figure>
-          </div>
-        `
+        img.sizes = '(min-midth: 600px) 28vw, 70vw'
+        img.srcset = srcset(item.image.url, [150, 200, 320, 360, 640, 720, 900, 1080, 1300, 1440])
+        return state.cache(Intersector, `gallery-${index}-${i}`).render(function (props) {
+          return html`
+            <div id="${props.id}" class="Slice-item ${props.class}">
+              <figure class="Slice-figure ${masked ? 'Slice-figure--mask' : null}" style="--aspect: ${(item.image.dimensions.height / item.image.dimensions.width * 100).toFixed(2)}%;">
+                <img style="max-width: 100%; height: auto;" ${img} src="${src(item.image.url, 640)}" />
+                ${masked ? mask('Slice-mask') : null}
+              </figure>
+            </div>
+          `
+        })
       })
 
       return html`
-        <div class="u-container">
+        <div class="u-container" id="slice-${index}">
           <div class="u-padded">
             <div class="Slice Slice--gallery ${(even) ? '' : 'Slice--alt'}">
               ${images}
@@ -150,7 +193,7 @@ function slices (slice, index, list, state) {
       attrs.srcset = srcset(image.url, [320, 360, 640, 720, 1080, 1300, 1440, 2000, 2600])
 
       return html`
-        <div class="Slice Slice--image Slice--video">
+        <div class="Slice Slice--image Slice--video" id="slice-${index}">
           <figure class="Slice-figure" style="--aspect: ${((720 / 1280) * 100).toFixed(2)}%;">
             <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
             <video style="max-width: 100%; height: auto;" preload="metadata" disablePictureInPicture playsinline muted loop width="960" height="540" poster="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
@@ -166,5 +209,33 @@ function slices (slice, index, list, state) {
       `
     }
     default: return null
+  }
+
+  function appearSerializer (type, node, content, children, index) {
+    if (type === Elements.hyperlink ||
+      type === Elements.label ||
+      type === Elements.span ||
+      type === Elements.strong ||
+      type === Elements.em ||
+      type === Elements.listItem ||
+      type === Elements.olistItem) {
+      return null
+    }
+
+    var segment = node.text.split(' ').slice(0, 5).join('-').toLowerCase().replace(/[^a-z-]/gi, '')
+    var id = `text-${index}-${segment}`
+
+    return state.cache(Intersector, id).render(function (props) {
+      switch (type) {
+        case Elements.heading1: return html`<h1 ${props}>${children}</h1>`
+        case Elements.heading2: return html`<h2 ${props}>${children}</h2>`
+        case Elements.heading3: return html`<h3 ${props}>${children}</h3>`
+        case Elements.paragraph: return html`<p ${props}>${children}</p>`
+        case Elements.preformatted: return html`<pre ${props}>${children}</pre>`
+        case Elements.list: return html`<ul ${props}>${children}</ul>`
+        case Elements.oList: return html`<ol ${props}>${children}</ol>`
+        default: return null
+      }
+    })
   }
 }

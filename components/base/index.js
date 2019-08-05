@@ -1,62 +1,10 @@
 var html = require('choo/html')
-var raw = require('choo/html/raw')
-var { Elements } = require('prismic-richtext')
-var PrismicRichText = require('prismic-richtext')
-var LinkHelper = require('prismic-helpers').Link
 
-function serialize (linkResolver, type, element, content, children) {
-  var attrs = {}
-  if (element.label) attrs.class = element.label
-
-  switch (type) {
-    case Elements.heading1: return html`<h1 ${attrs}>${children}</h1>`
-    case Elements.heading2: return html`<h2 ${attrs}>${children}</h2>`
-    case Elements.heading3: return html`<h3 ${attrs}>${children}</h3>`
-    case Elements.paragraph: return html`<p ${attrs}>${children}</p>`
-    case Elements.preformatted: return html`<pre ${attrs}>${children}</pre>`
-    case Elements.strong: return html`<strong ${attrs}>${children}</strong>`
-    case Elements.em: return html`<span class="u-textNowrap">${content}</span>`
-    case Elements.listItem:
-    case Elements.oListItem: return html`<li ${attrs}>${children}</li>`
-    case Elements.list: return html`<ul ${attrs}>${children}</ul>`
-    case Elements.oList: return html`<ol ${attrs}>${children}</ol>`
-    case Elements.hyperlink: return serializeHyperlink(linkResolver, element, children)
-    case Elements.label: return serializeLabel(element, children)
-    case Elements.span: return serializeSpan(content)
-    default: return null
-  }
-}
-
-function serializeHyperlink (linkResolver, element, children) {
-  var href = LinkHelper.url(element.data, linkResolver)
-  if (element.data.target && element.data.target === '_blank') {
-    return html`<a href="${href}" target="_blank" rel="noopener noreferrer">${children}</a>`
-  }
-  return html`<a href="${LinkHelper.url(element.data, linkResolver)}">${children}</a>`
-}
-
-function serializeLabel (element, children) {
-  var attrs = {}
-  if (element.data.label) attrs.class = element.data.label
-  return html`<span ${attrs}>${children}</span>`
-}
-
-function serializeSpan (content) {
-  if (content && content.indexOf('\n') !== -1) {
-    return raw(content.replace(/\n/g, '<br />'))
-  }
-  return content
-}
-
-exports.asElement = asElement
-function asElement (richText, linkResolver, serializer) {
-  var element = PrismicRichText.serialize(richText, serialize.bind(null, linkResolver), serializer)
-
-  if (element.length === 1) {
-    return element[0]
-  }
-
-  return element
+exports.resolve = resolve
+function resolve (doc) {
+  if (doc.url) return doc.url
+  if (doc.uid) return `/${doc.uid}`
+  return '/'
 }
 
 exports.mask = mask

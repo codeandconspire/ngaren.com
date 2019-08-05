@@ -22,7 +22,7 @@ module.exports = class Video extends Component {
     this.route = route
 
     return html`
-      <header class="Header">
+      <header class="Header" id="${this.id}">
         <div class="u-container">
           <svg class="Header-repeat" preserveAspectRatio="none" style="display: none;" role="presentation" viewBox="0 0 371 88">
             <g fill="none" fill-rule="evenodd">
