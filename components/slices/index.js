@@ -220,10 +220,13 @@ function slices (slice, index, list, state) {
       type === Elements.label ||
       type === Elements.span ||
       type === Elements.strong ||
-      type === Elements.em ||
       type === Elements.listItem ||
       type === Elements.olistItem) {
       return null
+    }
+
+    if (type === Elements.em) {
+      return html`<span class="u-textNowrap">${content}</span>`
     }
 
     var segment = node.text.split(' ').slice(0, 5).join('-').toLowerCase().replace(/[^a-z-]/gi, '')
