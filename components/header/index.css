@@ -51,14 +51,19 @@
   }
 }
 
-.Header-link {
+.Header-link  {
   display: inline-block;
   padding: 0.8em 0;
+}
+
+.Header-label {
   transition: color 400ms var(--ease);
 }
 
-.Header-link.is-active .Header-label:not(.Header-label--logotype) {
-  color: #999;
+@media (max-width: 699px) {
+  .Header-link.is-active .Header-label:not(.Header-label--logotype) {
+    color: #999;
+  }
 }
 
 .Header-link:active .Header-label {
