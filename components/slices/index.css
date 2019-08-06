@@ -131,7 +131,7 @@
     margin: 0;
   }
 
-  .Slice--hero strong.Slice-intersector {
+  .Slice--hero a {
     position: absolute;
   }
 

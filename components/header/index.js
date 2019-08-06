@@ -62,13 +62,15 @@ module.exports = class Video extends Component {
     `
 
     function link (props, children) {
-      var animation, direction
+      var animation, direction, exp
       if (props.route === route) {
         animation = [FLAT, CURVED]
         direction = 'expanding'
+        exp = true
       } else if (props.route === prev) {
         animation = [CURVED, FLAT]
         direction = 'collapsing'
+        exp = false
       }
 
       return html`
@@ -78,7 +80,7 @@ module.exports = class Video extends Component {
               <g fill="none" fill-rule="evenodd">
                 <path fill="#fff" d="M122 0h122v88H122z"/>
                 <path id="header-${props.route}" vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="${animation[0]}"/>
-                <animate xlink:href="#header-${props.route}" attributeName="d" begin="0s" dur="400ms" calcMode="spline" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="1" fill="freeze" values="${animation.join(';')}" />
+                <animate xlink:href="#header-${props.route}" attributeName="d" begin="${exp ? 0.3 : 0.1}s" dur="${exp ? 500 : 250}ms" calcMode="spline" keySplines="${exp ? '0, 0, 0.2, 1' : '0.4, 0, 1, 1'}" keyTimes="0; 1" repeatCount="1" fill="freeze" values="${animation.join(';')}" />
               </g>
             </svg>
           ` : null}

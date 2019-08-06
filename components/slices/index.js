@@ -115,9 +115,6 @@ function slices (slice, index, list, state) {
             <div class="Slice Slice--hero">
               <div class="Slice Slice-body" style="--Slice-item-index: 0">
                 ${asElement(slice.primary.text, resolve, appearSerializer)}
-                ${state.cache(Intersector, `hero-${index}-cta`).render(function (props) {
-                  return html`<strong ${props}><a href="/about">Get involved</a></strong>`
-                })}
               </div>
               <div class="Slice-aside" style="--Slice-item-index: 1">
                 ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
