@@ -15,18 +15,18 @@
 
 :root[scripting-enabled] .Slice-intersector {
   opacity: 0.00001;
-  transform: translateY(25%);
+  transform: translateY(6vh);
   will-change: opacity, transform;
 }
 
 .Slice-intersector.is-inview {
-  animation: Slice-intersector--appearing 1200ms calc(100ms * var(--Slice-item-index, 0) + 150ms) forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation: Slice-intersector--appearing 1800ms calc(150ms * var(--Slice-item-index, 0) + 150ms) forwards cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 @keyframes Slice-intersector--appearing {
   to {
     opacity: 1;
-    transform: translateY(0%);
+    transform: translateY(0vh);
   }
 }
 
@@ -480,6 +480,6 @@
  */
 
 .Slice--image,
-.Slice--image > .Slice-figure {
+.Slice--image .Slice-figure {
   margin-bottom: 0 !important;
 }

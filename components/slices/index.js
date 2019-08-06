@@ -44,20 +44,27 @@ function slices (slice, index, list, state) {
       return html`
         <div class="u-container" id="slice-${index}">
           <div class="u-padded">
-            <div class="Slice Slice--divider">
-              <hr class="u-hiddenVisually" />
-              <svg class="Slice-repeat" preserveAspectRatio="none" style="display: none;" role="presentation" viewBox="0 0 371 88">
-                <g fill="none" fill-rule="evenodd">
-                  <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M0 44h371"/>
-                </g>
-              </svg>
-              <svg class="Slice-symbol" style="display: none;" role="presentation" viewBox="0 0 365 88">
-                <g fill="none" fill-rule="evenodd">
-                  <path fill="#fff" d="M.5 0h363.5v88H.5z"/>
-                  <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M5 44h118V5l121 78V44h116"/>
-                </g>
-              </svg>
-            </div>
+          ${state.cache(Intersector, `line-${index}`).render(function (props) {
+            return html`
+              <div id="${props.id}" class="${props.class}">
+                <div class="Slice Slice--divider">
+                  <hr class="u-hiddenVisually" />
+                  <svg class="Slice-repeat" preserveAspectRatio="none" style="display: none;" role="presentation" viewBox="0 0 371 88">
+                    <g fill="none" fill-rule="evenodd">
+                      <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M0 44h371"/>
+                    </g>
+                  </svg>
+                  <svg class="Slice-symbol" style="display: none;" role="presentation" viewBox="0 0 365 88">
+                    <g fill="none" fill-rule="evenodd">
+                      <path fill="#fff" d="M.5 0h363.5v88H.5z"/>
+                      <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M5 44h118V5l121 78V44h116"/>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            `
+          })}
+            
           </div>
         </div>
       `
@@ -106,13 +113,13 @@ function slices (slice, index, list, state) {
         <div class="u-container" id="slice-${index}">
           <div class="u-padded">
             <div class="Slice Slice--hero">
-              <div class="Slice Slice-body">
+              <div class="Slice Slice-body" style="--Slice-item-index: 0">
                 ${asElement(slice.primary.text, resolve, appearSerializer)}
                 ${state.cache(Intersector, `hero-${index}-cta`).render(function (props) {
                   return html`<strong ${props}><a href="/about">Get involved</a></strong>`
                 })}
               </div>
-              <div class="Slice-aside">
+              <div class="Slice-aside" style="--Slice-item-index: 1">
                 ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
                   return html`
                     <figure id="${props.id}" class="Slice-figure Slice-figure--mask ${props.class}" style="--aspect: 108%;">
@@ -140,7 +147,7 @@ function slices (slice, index, list, state) {
         <div class="u-container" id="slice-${index}">
           <div class="u-padded">
             <div class="Slice Slice--person ${(odd) ? '' : 'Slice--alt'}">
-              <div class="Slice-aside">
+              <div class="Slice-aside" style="--Slice-item-index: ${(odd) ? 1 : 0}">
                 ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
                   return html`
                     <figure id="${props.id}" class="Slice-figure Slice-figure--mask ${props.class}" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
@@ -150,7 +157,7 @@ function slices (slice, index, list, state) {
                   `
                 })}
               </div>
-              <div class="Slice Slice-body">
+              <div class="Slice Slice-body" style="--Slice-item-index: ${(odd) ? 0 : 1}">
                 ${asElement(slice.primary.text, resolve, appearSerializer)}
               </div>
             </div>

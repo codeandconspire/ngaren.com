@@ -56,6 +56,10 @@
   padding: 0.8em 0;
 }
 
+.Header-link--start  {
+  padding: 0 0 0.7rem;
+}
+
 .Header-label {
   transition: color 400ms var(--ease);
 }
@@ -138,6 +142,12 @@
     top: 0;
     left: calc(50% - 0.5em);
     transform: translateX(-50%);
+  }
+
+  .Header-link--start .Header-symbol {
+    top: 0;
+    left: 0;
+    transform: none;
   }
 
   .Header-symbol--decorative {
