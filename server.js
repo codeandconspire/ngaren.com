@@ -19,6 +19,23 @@ var app = jalla('index.js', {
 })
 
 /**
+ * Prefetch all pages and website details, exposing them on state
+ */
+app.use(async function (ctx, next) {
+  if (!ctx.accepts('html')) return next()
+  var api = await Prismic.api(REPOSITORY, { req: ctx.req })
+  try {
+    const predicate = Prismic.Predicates.at('document.type', 'page')
+    const pages = await api.query(predicate)
+    const website = await api.getSingle('website')
+    ctx.state.pages = pages.results.map((doc) => doc).concat(website)
+  } catch (err) {
+    ctx.status = 500
+  }
+  return next()
+})
+
+/**
  * Proxy image transform requests to Cloudinary
  * By running all transforms through our own server we can cache the response
  * on our edge servers (Cloudinary) saving on costs. Seeing as Cloudflare has
@@ -71,22 +88,6 @@ app.use(get('/api/prismic-preview', async function (ctx) {
     path: '/'
   })
   ctx.redirect(href)
-}))
-
-/**
- * Capture requests for pages at the site root and redirect pages with a parent
- * to their proper url
- */
-app.use(get('/:slug', async function (ctx, slug, next) {
-  if (!ctx.accepts('html')) return next()
-  var api = await Prismic.api(REPOSITORY, { req: ctx.req })
-  try {
-    let doc = await api.getByUID('page', slug)
-    if (!doc.data.parent || !doc.data.parent.id) return next()
-    ctx.redirect(resolve(doc))
-  } catch (err) {
-    return next()
-  }
 }))
 
 /**

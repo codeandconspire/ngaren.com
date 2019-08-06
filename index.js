@@ -1,8 +1,5 @@
 var choo = require('choo')
-// var middleware = require('./lib/prismic-middleware')
 var app = choo()
-
-var REPOSITORY = 'https://ngaren.cdn.prismic.io/api/v2'
 
 app.state.origin = process.env.NODE_ENV === 'development'
   ? 'http://localhost:8080'
@@ -15,10 +12,8 @@ if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
 
 app.use(require('./stores/tracking'))
 app.use(require('./stores/navigation'))
-app.use(require('./stores/prismic')({ repository: REPOSITORY }))
 app.use(require('choo-meta')({ origin: app.state.origin }))
 app.use(require('choo-service-worker')('/sw.js'))
-app.use(require('./stores/prefetch'))
 
 app.route('/:page', require('./views/page'))
 app.route('/', require('./views/page'))
