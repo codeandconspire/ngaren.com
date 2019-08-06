@@ -14,29 +14,15 @@
   text-align: center;
 }
 
-.Header-start {
-  text-align: center;
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.7rem;
-  transition: color 400ms var(--ease);
-}
-
-.Header-start:active {
-  color: #bbb;
-  transition: none;
-}
-
-.Header-logotype {
-  display: flex;
-  justify-content: space-between;
-  width: 101%;
-}
-
 .Header-symbol {
-  display: block;
+  display: none;
   height: var(--symbol-height);
   margin-bottom: 0.5em;
+  overflow: visible;
+}
+
+.Header-symbol--decorative {
+  display: block;
 }
 
 .Header path {
@@ -66,18 +52,24 @@
 }
 
 .Header-link {
-  display: block;
+  display: inline-block;
   padding: 0.8em 0;
   transition: color 400ms var(--ease);
 }
 
-.Header-link.is-active {
+.Header-link.is-active .Header-label:not(.Header-label--logotype) {
   color: #999;
 }
 
-.Header-link:active {
+.Header-link:active .Header-label {
   color: #bbb;
   transition: none;
+}
+
+.Header-label--logotype {
+  display: flex;
+  justify-content: space-between;
+  width: 101%;
 }
 
 @media (min-width: 700px) {
@@ -99,7 +91,6 @@
 
   .Header .u-container {
     padding: 0 !important;
-    display: flex;
   }
 
   .Header-repeat {
@@ -109,22 +100,6 @@
     display: block !important;
     width: 100%;
     height: var(--symbol-height);
-  }
-
-  .Header-start {
-    font-size: 1.25em;
-  }
-
-  .Header-start:not(.is-active) .Header-symbol {
-    opacity: 0;
-  }
-
-  .Header-symbol {
-    overflow: visible;
-  }
-
-  .Header-symbol path:last-child {
-    stroke: #000;
   }
 
   .Header-nav {
@@ -140,26 +115,28 @@
   .Header-link {
     position: relative;
     margin-left: 2.6rem;
-    padding: 2.6em 0 1em;
+    padding: 2.6rem 0 1rem;
     margin-bottom: -0.5em;
     overflow: hidden;
   }
 
-  .Header-link .Header-symbol {
-    display: block !important;
-    opacity: 0;
+  .Header-link--start {
+    margin-left: 0;
+    width: 6em;
+    padding: 2.5em 0 0.5em;
+    font-size: 1.25em;
+  }
+
+  .Header-symbol {
+    display: block;
     position: absolute;
     top: 0;
     left: calc(50% - 0.5em);
     transform: translateX(-50%);
   }
 
-  .Header-link.is-active {
-    color: inherit;
-  }
-
-  .Header-link.is-active .Header-symbol {
-    opacity: 1;
+  .Header-symbol--decorative {
+    display: none;
   }
 }
 
@@ -170,12 +147,16 @@
 }
 
 @media (min-width: 1100px) {
-  .Header-start {
+  .Header-link--start {
     font-size: 1.6em;
   }
 
   .Header-link {
-    padding: 3.2em 0 1em;
+    padding: 3.2rem 0 1rem;
+  }
+
+  .Header-link--start {
+    padding: 2.2em 0 0.5em;
   }
 }
 
@@ -185,7 +166,7 @@
     margin-bottom: 2rem;
   }
 
-  .Header-start {
+  .Header-link--start {
     font-size: 1.4em;
   }
 }

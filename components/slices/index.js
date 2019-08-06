@@ -83,11 +83,15 @@ function slices (slice, index, list, state) {
 
       return html`
         <div class="Slice Slice--image" id="slice-${index}">
-          <figure class="Slice-figure" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
-            ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
-              return html`<img id="${props.id}" class="${props.class}" style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />`
-            })}
-          </figure>
+          ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
+            return html`
+              <div id="${props.id}" class="${props.class}">
+                <figure class="Slice-figure" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
+                  <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
+                </figure>
+              </div>
+            `
+          })}
         </div>
       `
     }
