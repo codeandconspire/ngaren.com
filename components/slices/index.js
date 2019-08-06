@@ -75,7 +75,7 @@ function slices (slice, index, list, state) {
         <div class="u-container" id="slice-${index}">
           <div class="u-padded">
             <div class="Slice Slice--text">
-              ${asElement(slice.primary.text, resolve, appearSerializer)}
+              ${asElement(slice.primary.text, resolve, serializer)}
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@ function slices (slice, index, list, state) {
           <div class="u-padded">
             <div class="Slice Slice--hero">
               <div class="Slice Slice-body" style="--Slice-item-index: 0">
-                ${asElement(slice.primary.text, resolve, appearSerializer)}
+                ${asElement(slice.primary.text, resolve, serializer)}
               </div>
               <div class="Slice-aside" style="--Slice-item-index: 1">
                 ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
@@ -155,7 +155,7 @@ function slices (slice, index, list, state) {
                 })}
               </div>
               <div class="Slice Slice-body" style="--Slice-item-index: ${(odd) ? 0 : 1}">
-                ${asElement(slice.primary.text, resolve, appearSerializer)}
+                ${asElement(slice.primary.text, resolve, serializer)}
               </div>
             </div>
           </div>
@@ -219,7 +219,7 @@ function slices (slice, index, list, state) {
     default: return null
   }
 
-  function appearSerializer (type, node, content, children, index) {
+  function serializer (type, node, content, children, index) {
     if (type === Elements.hyperlink ||
       type === Elements.label ||
       type === Elements.span ||
@@ -227,6 +227,10 @@ function slices (slice, index, list, state) {
       type === Elements.listItem ||
       type === Elements.olistItem) {
       return null
+    }
+
+    if (type === Elements.paragraph) {
+      console.log(children[0].href = '/about')
     }
 
     if (type === Elements.em) {
