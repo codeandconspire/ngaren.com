@@ -64,7 +64,7 @@ function slices (slice, index, list, state) {
               </div>
             `
           })}
-            
+
           </div>
         </div>
       `
@@ -227,10 +227,6 @@ function slices (slice, index, list, state) {
       type === Elements.listItem ||
       type === Elements.olistItem) {
       return null
-    }
-
-    if (type === Elements.paragraph) {
-      console.log(children[0].href = '/about')
     }
 
     if (type === Elements.em) {

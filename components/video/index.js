@@ -7,11 +7,11 @@ module.exports = class Video extends Component {
     playPromise.then(function () {
       // Video could be autoplayed, do nothing.
     }).catch(function (err) {
-      console.log(err)
+      if (process.env.NODE_ENV === 'development') console.log(err)
       // Video couldn't be autoplayed because of autoplay policy. Mute it and play.
       element.muted = true
       element.play()
-    })
+    }).catch(Function.prototype)
 
     element.addEventListener('play', function () {
       element.classList.add('is-ready')
