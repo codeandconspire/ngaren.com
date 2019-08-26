@@ -71,10 +71,25 @@ function slices (slice, index, list, state) {
     }
     case 'text': {
       if (!slice.primary.text.length) return null
+
+      var small = slice.primary.size && slice.primary.size.toLowerCase() === 'small'
+      var large = slice.primary.size && slice.primary.size.toLowerCase() === 'large'
       return html`
         <div class="u-container" id="slice-${index}">
           <div class="u-padded">
-            <div class="Slice Slice--text">
+            <div class="Slice Slice--text ${small ? 'Slice--small' : ''} ${large ? 'Slice--large' : ''}">
+              ${asElement(slice.primary.text, resolve, serializer)}
+            </div>
+          </div>
+        </div>
+      `
+    }
+    case 'heading': {
+      if (!slice.primary.text.length) return null
+      return html`
+        <div class="u-container" id="slice-heading-${index}">
+          <div class="u-padded">
+            <div class="Slice Slice--heading">
               ${asElement(slice.primary.text, resolve, serializer)}
             </div>
           </div>
@@ -82,23 +97,22 @@ function slices (slice, index, list, state) {
       `
     }
     case 'image': {
-      if (!slice.primary.image.url) return null
-      let image = slice.primary.image
-      let attrs = Object.assign({ alt: image.alt || '' }, image.dimensions)
-      attrs.sizes = '100vw'
-      attrs.srcset = srcset(image.url, [320, 360, 640, 720, 1080, 1300, 1440, 2000, 2600])
+      if (!slice.primary.primary.url) return null
+      if (!slice.primary.alternative.url) return null
+      let primary = slice.primary.primary
+      let alternative = slice.primary.alternative
+      let sizes = [320, 360, 640, 720, 1080, 1300, 1440, 2000, 2600]
+      let aspectPrimary = ((primary.dimensions.height / primary.dimensions.width) * 100).toFixed(2)
+      let aspectAlternative = ((alternative.dimensions.height / alternative.dimensions.width) * 100).toFixed(2)
 
       return html`
         <div class="Slice Slice--image" id="slice-${index}">
-          ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
-            return html`
-              <div id="${props.id}" class="${props.class}">
-                <figure class="Slice-figure" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
-                  <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
-                </figure>
-              </div>
-            `
-          })}
+          <figure class="Slice-figure" style="--aspect-primary: ${aspectPrimary}%; --aspect-alternative: ${aspectAlternative}%;">
+            <picture>
+              <source srcset="${srcset(primary.url, sizes)}" media="(min-width: 500px)" sizes="100vw">
+              <img class="Figure-image js-image" alt="${primary.alt || ''}" srcset="${srcset(alternative.url, sizes)}" sizes="100vw" width="${alternative.dimensions.height}" height="${alternative.dimensions.height}" src="${alternative.src}">
+            </picture>
+          </figure>
         </div>
       `
     }
@@ -143,12 +157,12 @@ function slices (slice, index, list, state) {
       return html`
         <div class="u-container" id="slice-${index}">
           <div class="u-padded">
-            <div class="Slice Slice--person ${(odd) ? '' : 'Slice--alt'}">
+            <div class="Slice Slice--person Slice--small ${(odd) ? '' : 'Slice--alt'}">
               <div class="Slice-aside" style="--Slice-item-index: ${(odd) ? 1 : 0}">
                 ${state.cache(Intersector, image.url.split('/').slice(-1)[0]).render(function (props) {
                   return html`
                     <figure id="${props.id}" class="Slice-figure Slice-figure--mask ${props.class}" style="--aspect: ${((image.dimensions.height / image.dimensions.width) * 100).toFixed(2)}%;">
-                      <img style="'max-width: 100%; height: auto;'" ${img} src="${src(slice.primary.image.url, 640)}" />
+                      <img style="max-width: 100%; height: auto;" ${img} src="${src(slice.primary.image.url, 640)}" />
                       ${mask('Slice-mask')}
                     </figure>
                   `

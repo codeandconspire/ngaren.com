@@ -10,7 +10,8 @@ function resolve (doc) {
 exports.mask = mask
 function mask (className) {
   return html`
-    <svg class="${className}" role="presentation" style="display: none;" preserveAspectRatio="none" viewBox="0 0 365 88">
+    <div class="${className}">
+    <svg role="presentation" style="display: none;" preserveAspectRatio="none" viewBox="0 0 365 88">
       <g fill="none" fill-rule="evenodd">
       <path fill="#FFF" d="M123 44V5l121 78V44h121v44H0V44z"/>
         <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M5 44h118V5l121 78V44h116"/>
@@ -23,7 +24,7 @@ function mask (className) {
 // (str, num, obj?) -> str
 exports.src = src
 function src (uri, size) {
-  var q = (size > 1000) ? 'q_25' : 'q_40'
+  var q = (size > 1000) ? 'q_30' : 'q_45'
   var transforms = `c_fill,f_auto,${q}`
 
   // trim prismic domain from uri

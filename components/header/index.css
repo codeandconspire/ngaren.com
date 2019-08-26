@@ -141,7 +141,7 @@
     position: absolute;
     top: 0;
     left: calc(50% - 0.5em);
-    transform: translateX(-50%);
+    transform: translateX(-45%);
   }
 
   .Header-link--start .Header-symbol {
@@ -157,7 +157,7 @@
 
 @media (min-width: 800px) {
   .Header {
-    margin-top: calc(var(--document-margin) - 1rem);
+    margin-top: calc(var(--document-margin) - 1.5rem);
   }
 }
 
@@ -178,7 +178,6 @@
 @media (min-width: 1400px) {
   .Header {
     font-size: 1rem;
-    margin-bottom: 2rem;
   }
 
   .Header-link--start {

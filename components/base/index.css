@@ -3,26 +3,6 @@
 @import "./utilities";
 
 /**
- * Font declaration
- */
-
-@font-face {
-  font-family: "Font";
-  font-style: normal;
-  font-weight: bold;
-  font-display: block;
-  src: url("./fonts/font-bold.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Font";
-  font-style: normal;
-  font-weight: normal;
-  font-display: block;
-  src: url("./fonts/font-book.woff2") format("woff2");
-}
-
-/**
  * Document styles
  * 1. Global box sizing
  * 2. Guard for horizontal scrolling
@@ -168,4 +148,8 @@ button {
 
 :focus {
   outline: 0;
+}
+
+strong {
+  font-weight: 600;
 }

@@ -20,7 +20,7 @@
 }
 
 .Slice-intersector.is-inview {
-  animation: Slice-intersector--appearing 1800ms calc(150ms * var(--Slice-item-index, 0) + 150ms) forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation: Slice-intersector--appearing 1500ms calc(150ms * var(--Slice-item-index, 0) + 150ms) forwards cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 @keyframes Slice-intersector--appearing {
@@ -39,28 +39,36 @@
   position: relative;
   height: 0;
   padding-bottom: var(--aspect);
-  overflow: hidden;
   margin: 2.5rem 0 2.5rem;
   background: currentColor;
-  box-shadow: inset 0 0 0 1px #fff;
 }
 
 .Slice-figure--mask {
   margin: 2.5rem 0 calc(2.5rem - var(--symbol-height));
   box-shadow: none;
+  box-shadow: inset 0 0 0 1px #fff;
 }
 
-.Slice-figure--mask::after {
+.Slice:not(.Slice--video):not(.Slice--image) .Slice-figure::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: 0;
-  height: 1px;
+  bottom: -1px;
+  height: 4px;
   background: #fff;
   width: 100%;
 }
 
 .Slice-mask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--symbol-height);
+  overflow: hidden;
+}
+
+.Slice-mask svg {
   display: block !important; /* 1 */
   position: absolute;
   bottom: 0;
@@ -81,8 +89,32 @@
 .Slice h1,
 .Slice h2,
 .Slice p {
+  margin: 1.1em 0;
+  max-width: 18em;
+}
+
+.Slice--small {
+  font-size: var(--document-font-size-small);
+  line-height: var(--document-line-height-small);
+}
+
+.Slice--small h1,
+.Slice--small h2,
+.Slice--small p {
+  margin: 0.9em 0;
+  max-width: 95%;
+}
+
+.Slice--large {
+  font-size: var(--document-font-size-large);
+  line-height: var(--document-line-height-large);
+}
+
+.Slice--large h1,
+.Slice--large h2,
+.Slice--large p {
   margin: 0.8em 0;
-  max-width: 15em;
+  max-width: 15.1em;
 }
 
 .Slice img,
@@ -96,14 +128,13 @@
 }
 
 .Slice a {
-  border-bottom: 1px solid;
-  color: #a7a7a7;
   display: inline-block;
   transition: color 400ms var(--ease);
+  font-weight: 700;
 }
 
 .Slice a:active {
-  color: #ccc;
+  color: #999;
   transition: none;
 }
 
@@ -111,11 +142,48 @@
   .Slice a {
     border-bottom-width: 3px;
   }
+
+  .Slice a::after {
+    content: "";
+
+  }
+}
+
+/**
+ * Heading slice
+ */
+
+.Slice--heading {
+  font-size: var(--document-font-size-large);
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 /**
  * Hero slice
  */
+
+.Slice--hero {
+  line-height: var(--document-line-height-large);
+}
+
+@media (max-width: 899px) {
+  .Slice--hero {
+    font-size: var(--document-font-size-large);
+    line-height: var(--document-line-height-large);
+  }
+}
+
+.Slice--hero h1,
+.Slice--hero h2,
+.Slice--hero p {
+  margin: 0.8em 0;
+  max-width: 15.1em;
+}
+
+.Slice--hero .Slice-body {
+  max-width: 11.5em;
+}
 
 .Slice--hero img,
 .Slice--hero video {
@@ -123,7 +191,7 @@
   object-position: center;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 900px) {
   .Slice--hero {
     display: flex;
     justify-content: space-between;
@@ -136,12 +204,13 @@
   }
 
   .Slice--hero .Slice-body {
-    flex: 1 1 50%;
-    padding-right: 2rem;
+    flex: 1 1 70%;
+    padding-right: 1rem;
+    max-width: 11.6em;
   }
 
   .Slice--hero .Slice-body > * {
-    max-width: 8em;
+    /* max-width: 8em; */
   }
 
   .Slice--hero .Slice-body > :first-child {
@@ -155,7 +224,7 @@
   .Slice--hero .Slice-aside {
     position: relative;
     padding-left: 2rem;
-    flex: 1 1 50%;
+    flex: 1 1 auto;
   }
 
   .Slice--hero .Slice-figure {
@@ -184,11 +253,6 @@
  * Person slice
  */
 
-.Slice--person .Slice-body {
-  font-size: var(--document-font-size-small);
-  line-height: var(--document-line-height-small);
-}
-
 .Slice--person h1,
 .Slice--person h2,
 .Slice--person p {
@@ -213,14 +277,15 @@
   }
 
   .Slice--person .Slice-body {
-    flex: 1 1 50%;
+    flex: 1 1 60%;
+    margin: 0;
     padding-right: calc(var(--document-margin) / 2);
   }
 
   .Slice--person .Slice-aside {
     order: 1;
     padding-left: calc(var(--document-margin) / 2);
-    flex: 1 1 50%;
+    flex: 1 1 40%;
   }
 
   .Slice--person.Slice--alt .Slice-body {
@@ -237,6 +302,10 @@
   .Slice--person .Slice-body > :first-child {
     margin-top: 0;
   }
+  
+  .Slice--person .Slice-body > :last-child {
+    margin-bottom: 0;
+  }
 
   .Slice--person .Slice-body h1,
   .Slice--person .Slice-body h2,
@@ -245,7 +314,14 @@
   }
 
   .Slice--person .Slice-figure {
-    margin: var(--document-margin) 0 calc(var(--document-margin) - var(--symbol-height));
+    margin: 0;
+  }
+}
+
+@media (min-width: 1000px) {
+  .Slice--person .Slice-body,
+  .Slice--person .Slice-aside {
+    flex: 1 1 50%;
   }
 }
 
@@ -341,12 +417,12 @@
 
   .Slice--gallery.Slice--alt .Slice-item:nth-child(2) {
     width: 31%;
-    margin: -14% 6% 0 auto;
+    margin: -10% 6% 0 auto;
   }
 
   .Slice--gallery.Slice--alt .Slice-item:nth-child(3) {
     width: 25%;
-    margin: -10% 0 calc(var(--document-margin) * 2) 12%;
+    margin: -2% 0 calc(var(--document-margin) * 2) 12%;
   }
 }
 
@@ -355,17 +431,12 @@
  */
 
 .Slice--space {
-  margin-bottom: calc(var(--document-margin) * 1.4);
+  margin-bottom: calc(var(--document-margin) * 2);
 }
 
 .Slice--space:last-child {
-  margin-bottom: 10vh;
-}
-
-@media (min-width: 1000px) {
-  .Slice--space:last-child {
-    margin-bottom: calc(var(--document-margin) * 2);
-  }
+  padding-bottom: calc(var(--document-margin) * 3);
+  margin-bottom: 0;
 }
 
 /**
@@ -412,7 +483,7 @@
 
 @media (min-width: 1200px) {
   .Slice--divider {
-    margin: 5rem 0 4.8rem;
+    margin: calc(var(--document-margin) * 2) 0 calc(var(--document-margin) * -0.5);
   }
 }
 
@@ -475,6 +546,10 @@
   stroke-width: var(--symbol-stroke-width);
 }
 
+.Slice--video .Slice-figure {
+  overflow: hidden;
+}
+
 /**
  * Image slice
  */
@@ -482,4 +557,14 @@
 .Slice--image,
 .Slice--image .Slice-figure {
   margin-bottom: 0 !important;
+}
+
+.Slice--image .Slice-figure {
+  padding-bottom: var(--aspect-alternative);
+}
+
+@media (min-width: 500px) {
+  .Slice--image .Slice-figure {
+    padding-bottom: var(--aspect-primary);
+  }
 }
