@@ -1,10 +1,10 @@
 @import "../base";
 
-/* @define Video */
-.Video {
+/* @define Loop */
+.Loop {
   opacity: 0;
 }
 
-.Video.is-ready {
+.Loop.is-ready {
   opacity: 1;
 }

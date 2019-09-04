@@ -4,7 +4,7 @@ var Component = require('choo/component')
 var FLAT = 'M0 44L118 44 118 43.9632721 239 44.0642853 239 44 355 44'
 var CURVED = 'M0 44L118 44 118 5 239 83 239 44 355 44'
 
-module.exports = class Video extends Component {
+module.exports = class Header extends Component {
   constructor (id, state, emit) {
     super(id)
     this.id = id

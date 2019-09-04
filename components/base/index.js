@@ -24,7 +24,7 @@ function mask (className) {
 // (str, num, obj?) -> str
 exports.src = src
 function src (uri, size) {
-  var q = (size > 1000) ? 'q_30' : 'q_45'
+  var q = (size > 1000) ? 'q_45' : 'q_65'
   var transforms = `c_fill,f_auto,${q}`
 
   // trim prismic domain from uri
