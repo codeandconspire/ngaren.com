@@ -131,7 +131,7 @@
 
   .Header-link--start {
     margin-left: 0;
-    width: 6em;
+    width: 6.9em;
     padding: 2.5em 0 0.5em;
     font-size: 1.25em;
   }
@@ -164,6 +164,7 @@
 @media (min-width: 1100px) {
   .Header-link--start {
     font-size: 1.6em;
+    width: 6.7em;
   }
 
   .Header-link {
