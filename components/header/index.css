@@ -140,7 +140,7 @@
     display: block;
     position: absolute;
     top: 0;
-    left: calc(50% - 0.5em);
+    left: calc(50% - 0.8em);
     transform: translateX(-45%);
   }
 
