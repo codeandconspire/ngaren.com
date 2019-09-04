@@ -203,7 +203,9 @@ function slices (slice, index, list, state) {
           <div class="u-padded">
             <div class="Slice Slice--gallery ${even ? '' : 'Slice--alt'}">
               ${images}
-              ${even ? null : html`<div class="Slice-caption">Photos courtesy of Turkana Basin Institute</div>`}
+              ${even ? null : state.cache(Intersector, `gallery-${index}-${slice.items.length + 1}`).render(function (props) {
+                return html`<div class="Slice-caption Slice-intersector">Photos courtesy of Turkana Basin Institute</div>`
+              })}
             </div>
           </div>
         </div>
