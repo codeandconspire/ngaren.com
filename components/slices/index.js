@@ -201,8 +201,9 @@ function slices (slice, index, list, state) {
       return html`
         <div class="u-container" id="slice-${index}">
           <div class="u-padded">
-            <div class="Slice Slice--gallery ${(even) ? '' : 'Slice--alt'}">
+            <div class="Slice Slice--gallery ${even ? '' : 'Slice--alt'}">
               ${images}
+              ${even ? null : html`<div class="Slice-caption">Photos courtesy of Turkana Basin Institute</div>`}
             </div>
           </div>
         </div>
