@@ -356,26 +356,25 @@
 .Slice-caption {
   font-size: 1rem;
   line-height: var(--document-line-height-small);
-  margin: 1.7rem 0 0rem 0;
+  margin: 1.5rem 0 0rem 0;
 }
 
 .Slice--gallery .Slice-item:nth-child(1) {
-  width: 40%;
+  width: 58%;
 }
 
 .Slice--gallery .Slice-item:nth-child(2) {
-  width: 80%;
+  width: 90%;
   margin-left: auto;
 }
 
 .Slice--gallery .Slice-item:nth-child(3) {
-  width: 45%;
+  width: 80%;
 }
 
 .Slice--gallery .Slice-item:nth-child(4) {
-  width: 40%;
+  width: 70%;
   margin-left: auto;
-  margin-top: -8rem;
 }
 
 .Slice--gallery.Slice--alt .Slice-item:nth-child(1) {
@@ -383,12 +382,12 @@
 }
 
 .Slice--gallery.Slice--alt .Slice-item:nth-child(2) {
-  width: 65%;
+  width: 70%;
   margin-left: auto;
 }
 
 .Slice--gallery.Slice--alt .Slice-item:nth-child(3) {
-  width: 55%;
+  width: 70%;
 }
 
 @media (min-width: 600px) {
