@@ -52,6 +52,7 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
+    "@vimeo/player": "^2.10.0",
     "can-autoplay": "^3.0.0",
     "cccpurge": "^2.0.0",
     "choo": "^7.0.0",

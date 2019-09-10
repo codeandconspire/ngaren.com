@@ -36,7 +36,7 @@
   letter-spacing: 0.4em;
 }
 
-@media (min-width: 350px) {
+@media (min-width: 350px) and (max-width: 699px) {
   .Header-nav li:nth-child(2) {
     position: absolute;
     left: 50%;
@@ -65,6 +65,7 @@
 
 .Header-link--start  {
   padding: 0 0 1.8rem;
+  margin-left: -0.5em;
 }
 
 .Header-label {

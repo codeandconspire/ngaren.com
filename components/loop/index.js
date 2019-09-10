@@ -5,10 +5,8 @@ module.exports = class Loop extends Component {
   load (element) {
     var playPromise = element.play() || Promise.reject(new Error(`Can't play`))
     playPromise.then(function () {
-      console.log('playing')
       // Video could be autoplayed, do nothing.
     }).catch(function (err) {
-      console.log('not playing')
       if (process.env.NODE_ENV === 'development') console.log(err)
       // Video couldn't be autoplayed because of autoplay policy. Mute it and play.
       element.muted = true

@@ -209,10 +209,6 @@
     max-width: 11.6em;
   }
 
-  .Slice--hero .Slice-body > * {
-    /* max-width: 8em; */
-  }
-
   .Slice--hero .Slice-body > :first-child {
     margin-top: 0;
   }
@@ -505,9 +501,41 @@
 
 .Slice--video {
   position: relative;
+  user-select: none;
 }
 
-.Slice--video::after {
+.Slice-status {
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: normal;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -1rem);
+  z-index: 1;
+  will-change: opacity;
+}
+
+@media (min-width: 700px) {
+  .Slice-status {
+    font-size: 1rem;
+    transform: translate(-50%, -2rem);
+  }
+}
+
+.Slice .Slice-playLink {
+  border: 0;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  box-shadow: inset #fff 0 -1px 0;
+}
+
+.Slice-playLink::after {
   content: "";
   width: 100%;
   height: 100%;
@@ -520,31 +548,25 @@
   pointer-events: none;
 }
 
-.Slice--video:hover::after {
+.Slice-playLink:hover::after {
   opacity: 0.1;
-}
-
-.Slice .Slice-playLink {
-  border: 0;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
 }
 
 .Slice-play {
   position: absolute;
+  top: 0;
+  left: -0.5%;
   display: block !important;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: color 300ms var(--ease);
+  transition: color 300ms var(--ease), opacity 300ms var(--ease);
   width: calc(var(--symbol-height) * 3.85);
   height: auto;
   color: #fff;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+
+.Slice-play--loading {
+  width: calc(var(--symbol-height) * 3);
 }
 
 .Slice--video img {
@@ -570,13 +592,89 @@
   overflow: hidden;
 }
 
-iframe.Slice-embed {
+.Slice-embed {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 5;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0ms 200ms;
+}
+
+.Slice-embed iframe {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 300%;
+}
+
+.Slice-vimeo.is-ready .Slice-embed {
+  opacity: 1;
+}
+
+.Slice-vimeo.is-playing .Slice-play {
+  opacity: 0;
+}
+
+.Slice-play--loading {
+  opacity: 0 !important;
+  left: 0;
+}
+
+.Slice-videoActions {
+  transform-origin: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+}
+
+.Slice-vimeo.is-loading .Slice-videoActions {
+  animation: rotate 800ms 300ms linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(365deg);
+  }
+}
+
+.Slice-vimeo.is-loading .Slice-play {
+  opacity: 0;
+}
+
+.Slice-vimeo.is-loading .Slice-play--loading {
+  opacity: 1 !important;
+  transition: opacity 500ms 300ms var(--ease-out);
+}
+
+.Slice-vimeo.is-ready .Slice-playLink::after {
+  transition: opacity 500ms var(--ease-out);
+}
+
+.Slice-status {
+  transition: opacity 400ms 100ms var(--ease-out);
+}
+
+.Slice-vimeo.is-playing .Slice-playLink::after {
+  transition-timing-function: var(--ease-in);
+}
+
+.Slice-vimeo.is-ready:not(.is-playing) .Slice-playLink:hover::after {
+  opacity: 0.98;
+}
+
+.Slice-vimeo.is-playing .Slice-status {
+  transition-timing-function: var(--ease-in);
+}
+
+.Slice-vimeo.is-playing .Slice-playLink::after,
+.Slice-vimeo.is-playing .Slice-status {
+  opacity: 0;
 }
 
 /**
@@ -590,6 +688,10 @@ iframe.Slice-embed {
 
 .Slice--image .Slice-figure {
   padding-bottom: var(--aspect-alternative);
+}
+
+.Slice--video .Slice-figure {
+  padding-bottom: var(--aspect-primary);
 }
 
 @media (min-width: 500px) {
