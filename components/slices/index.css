@@ -127,28 +127,6 @@
   height: 100% !important;
 }
 
-.Slice a {
-  display: inline-block;
-  transition: color 400ms var(--ease);
-  font-weight: 700;
-}
-
-.Slice a:active {
-  color: #999;
-  transition: none;
-}
-
-@media (min-width: 600px) {
-  .Slice a {
-    border-bottom-width: 3px;
-  }
-
-  .Slice a::after {
-    content: "";
-
-  }
-}
-
 /**
  * Heading slice
  */
@@ -429,7 +407,7 @@
 
   .Slice--gallery.Slice--alt .Slice-item:nth-child(3) {
     width: 32%;
-    margin: -13% 0 calc(var(--document-margin) * 2) 7%;
+    margin: -15% 0 calc(var(--document-margin) * 2.4) 7%;
   }
 }
 

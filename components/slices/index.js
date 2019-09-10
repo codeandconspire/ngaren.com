@@ -231,8 +231,7 @@ function slices (slice, index, list, state) {
   }
 
   function serializer (type, node, content, children, index) {
-    if (type === Elements.hyperlink ||
-      type === Elements.label ||
+    if (type === Elements.label ||
       type === Elements.span ||
       type === Elements.strong ||
       type === Elements.listItem ||
@@ -242,6 +241,37 @@ function slices (slice, index, list, state) {
 
     if (type === Elements.em) {
       return html`<span class="u-textNowrap">${content}</span>`
+    }
+
+    if (type === Elements.hyperlink) {
+      var args = {
+        href: node.data.url ? node.data.url : '/' + node.data.slug,
+        class: 'u-linkArrow'
+      }
+      var arrow = true
+
+      if (node.data.target === '_blank') {
+        args.target = '_blank'
+        args.rel = 'noopener noreferrer'
+      }
+
+      if (node.data.url && node.data.url.indexOf('mailto') !== -1) {
+        args.class = 'u-link'
+        arrow = false
+      }
+
+      return html`<a ${args}>
+        ${content}
+        ${arrow ? html`
+          <svg class="u-arrow" style="display: none;" role="presentation" viewBox="0 0 372 88">
+            <g fill="none" fill-rule="evenodd">
+              <path fill="#FFF" fill-rule="nonzero" d="M.5 0H372v88H.5z"/>
+              <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="M5 44h118V5l121 78V44h116"/>
+              <path fill="currentColor" d="M352 27l20 17-20 17z"/>
+            </g>
+          </svg>
+        ` : null}
+      </a>`
     }
 
     var segment = node.text.split(' ').slice(0, 5).join('-').toLowerCase().replace(/[^a-z-]/gi, '')
