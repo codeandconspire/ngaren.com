@@ -13,6 +13,24 @@
  * Text
  */
 
+.Slice--text {
+  line-height: var(--document-line-height-large);
+}
+
+@media (max-width: 899px) {
+  .Slice--text {
+    font-size: var(--document-font-size-large);
+    line-height: var(--document-line-height-large);
+  }
+}
+
+.Slice--text h1,
+.Slice--text h2,
+.Slice--text p {
+  margin: 0.6em 0;
+  max-width: 15.1em;
+}
+
 :root[scripting-enabled] .Slice-intersector {
   opacity: 0.00001;
   transform: translateY(6vh);
@@ -90,7 +108,7 @@
 .Slice h2,
 .Slice p {
   margin: 1.1em 0;
-  max-width: 18em;
+  max-width: 15.1em;
 }
 
 .Slice--small {
@@ -103,18 +121,6 @@
 .Slice--small p {
   margin: 0.9em 0;
   max-width: 95%;
-}
-
-.Slice--large {
-  font-size: var(--document-font-size-large);
-  line-height: var(--document-line-height-large);
-}
-
-.Slice--large h1,
-.Slice--large h2,
-.Slice--large p {
-  margin: 0.8em 0;
-  max-width: 15.1em;
 }
 
 .Slice img,
@@ -141,26 +147,12 @@
  * Hero slice
  */
 
-.Slice--hero {
-  line-height: var(--document-line-height-large);
-}
-
-@media (max-width: 899px) {
-  .Slice--hero {
-    font-size: var(--document-font-size-large);
-    line-height: var(--document-line-height-large);
-  }
-}
-
-.Slice--hero h1,
-.Slice--hero h2,
-.Slice--hero p {
-  margin: 0.8em 0;
-  max-width: 15.1em;
-}
-
 .Slice--hero .Slice-body {
   max-width: 11.5em;
+}
+
+.Slice--hero .u-linkArrow {
+  margin-top: 0.6em;
 }
 
 .Slice--hero img,
@@ -199,6 +191,7 @@
     position: relative;
     padding-left: 2rem;
     flex: 1 1 auto;
+    max-width: 37.5rem;
   }
 
   .Slice--hero .Slice-figure {

@@ -127,7 +127,7 @@ function slices (slice, index, list, state) {
       return html`
         <div class="u-container" id="slice-${index}">
           <div class="u-padded">
-            <div class="Slice Slice--hero">
+            <div class="Slice Slice--text Slice--hero">
               <div class="Slice Slice-body" style="--Slice-item-index: 0">
                 ${asElement(slice.primary.text, resolve, serializer)}
               </div>

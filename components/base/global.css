@@ -7,7 +7,7 @@
   
   --document-line-height-small: 1.15;
   --document-line-height: 1.1;
-  --document-line-height-large: 1;
+  --document-line-height-large: 1.05;
 
   --document-background: 255, 255, 255;
   --document-color: 0, 0, 0;
@@ -83,7 +83,7 @@
     --document-font-size-large: 4.2rem;
     
     --document-line-height: 1.2;
-    --document-line-height-large: 0.93;
+    --document-line-height-large: 1;
 
     --document-margin: 4rem;    
     --symbol-stroke-width: 4px;
