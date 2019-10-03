@@ -24,7 +24,7 @@
   max-width: calc(var(--container-large-width) + (var(--document-margin) * 2)) !important
 }
 
-@media (min-width: 500px) {
+@media (min-width: 400px) {
   .u-padded {
     padding-left: var(--document-margin) !important;
     padding-right: var(--document-margin) !important;
@@ -43,7 +43,7 @@
 .u-linkArrow {
   display: inline-block;
   transition: color 400ms var(--ease);
-  font-weight: 600;
+  font-weight: 700;
   position: relative;
 }
 

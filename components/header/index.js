@@ -36,7 +36,7 @@ module.exports = class Header extends Component {
           ${link({ href: '/', route: 'home', modifier: 'start' }, html`
             <svg class="Header-symbol Header-symbol--decorative" role="presentation" viewBox="0 0 365 88">
               <g fill="none" fill-rule="evenodd">
-                <path fill="#fff" d="M122 0h122v88H122z"/>
+                <path fill="#fff" d="M122 0h120v88H115z"/>
                 <path vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="${CURVED}"/>
               </g>
             </svg>
@@ -78,7 +78,7 @@ module.exports = class Header extends Component {
           ${animation ? html`
             <svg id="header-${props.route}-${direction}" class="Header-symbol" role="presentation" viewBox="0 0 365 88">
               <g fill="none" fill-rule="evenodd">
-                <path fill="#fff" d="M122 0h122v88H122z"/>
+                <path fill="#fff" d="M122 0h120v88H115z"/>
                 <path id="header-${props.route}" vector-effect="non-scaling-stroke" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="10" d="${animation[0]}"/>
                 <animate xlink:href="#header-${props.route}" attributeName="d" begin="${exp ? 0.3 : 0.1}s" dur="${exp ? 500 : 250}ms" calcMode="spline" keySplines="${exp ? '0, 0, 0.2, 1' : '0.4, 0, 1, 1'}" keyTimes="0; 1" repeatCount="1" fill="freeze" values="${animation.join(';')}" />
               </g>

@@ -25,9 +25,11 @@ class Intersector extends Component {
     if ('IntersectionObserver' in window) {
       this.unload = onintersect(el, function (event) {
         event.target.classList.add('is-inview')
+        console.log('inview2')
       })
     } else {
       el.classList.add('is-inview')
+      console.log('inview1')
     }
   }
 
@@ -72,13 +74,12 @@ function slices (slice, index, list, state) {
     }
     case 'text': {
       if (!slice.primary.text.length) return null
-
       var small = slice.primary.size && slice.primary.size.toLowerCase() === 'small'
-      var large = slice.primary.size && slice.primary.size.toLowerCase() === 'large'
+
       return html`
         <div class="u-container" id="slice-${index}">
           <div class="u-padded">
-            <div class="Slice Slice--text ${small ? 'Slice--small' : ''} ${large ? 'Slice--large' : ''}">
+            <div class="Slice Slice--text ${small ? 'Slice--small' : ''}">
               ${asElement(slice.primary.text, resolve, serializer)}
             </div>
           </div>
@@ -128,7 +129,7 @@ function slices (slice, index, list, state) {
         <div class="u-container" id="slice-${index}">
           <div class="u-padded">
             <div class="Slice Slice--text Slice--hero">
-              <div class="Slice Slice-body" style="--Slice-item-index: 0">
+              <div class="Slice-body" style="--Slice-item-index: 0">
                 ${asElement(slice.primary.text, resolve, serializer)}
               </div>
               <div class="Slice-aside" style="--Slice-item-index: 1">
@@ -169,7 +170,7 @@ function slices (slice, index, list, state) {
                   `
                 })}
               </div>
-              <div class="Slice Slice-body" style="--Slice-item-index: ${(odd) ? 0 : 1}">
+              <div class="Slice-body" style="--Slice-item-index: ${(odd) ? 0 : 1}">
                 ${asElement(slice.primary.text, resolve, serializer)}
               </div>
             </div>
@@ -246,7 +247,8 @@ function slices (slice, index, list, state) {
     if (type === Elements.hyperlink) {
       var args = {
         href: node.data.url ? node.data.url : '/' + node.data.slug,
-        class: 'u-linkArrow'
+        class: 'u-linkArrow',
+        id: `content.split(' ').slice(0, 5).join('-').toLowerCase().replace(/[^a-z-]/gi, '')`
       }
       var arrow = true
 

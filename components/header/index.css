@@ -96,7 +96,7 @@
     align-items: normal;
     position: relative;
     top: 0;
-    margin: var(--document-margin) 0 0 var(--document-margin);
+    margin: calc(var(--document-margin) * 0.8) 0 0 var(--document-margin);
     width: calc(100% - (var(--document-margin) * 2));
   }
 
@@ -163,11 +163,11 @@
   }
 }
 
-@media (min-width: 800px) {
+/* @media (min-width: 800px) {
   .Header {
     margin-top: calc(var(--document-margin) - 1.5rem);
   }
-}
+} */
 
 @media (min-width: 1100px) {
   .Header-link--start {
