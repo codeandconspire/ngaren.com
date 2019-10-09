@@ -512,21 +512,30 @@
   width: 100%;
   height: 100%;
   z-index: 0;
-  pointer-events: none;
+  /* pointer-events: none; */
   opacity: 0;
   transition: opacity 0ms 200ms;
 }
 
 .Slice-embed iframe {
-  position: absolute;
+  /* position: absolute;
   top: -100%;
   left: 0;
   width: 100%;
-  height: 300%;
+  height: 300%; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .Slice-vimeo.is-ready .Slice-embed {
   opacity: 1;
+}
+
+.Slice-vimeo.is-ready .Slice-playLink {
+  display: none;
 }
 
 .Slice-vimeo.is-playing .Slice-play {
