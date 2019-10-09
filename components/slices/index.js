@@ -25,11 +25,9 @@ class Intersector extends Component {
     if ('IntersectionObserver' in window) {
       this.unload = onintersect(el, function (event) {
         event.target.classList.add('is-inview')
-        console.log('inview2')
       })
     } else {
       el.classList.add('is-inview')
-      console.log('inview1')
     }
   }
 
@@ -248,7 +246,7 @@ function slices (slice, index, list, state) {
       var args = {
         href: node.data.url ? node.data.url : '/' + node.data.slug,
         class: 'u-linkArrow',
-        id: `content.split(' ').slice(0, 5).join('-').toLowerCase().replace(/[^a-z-]/gi, '')`
+        id: `${state.params.page}-${index}`
       }
       var arrow = true
 
@@ -261,6 +259,8 @@ function slices (slice, index, list, state) {
         args.class = 'u-link'
         arrow = false
       }
+
+      console.log(args.id)
 
       return html`<a ${args}>
         ${content}
@@ -277,7 +277,7 @@ function slices (slice, index, list, state) {
     }
 
     var segment = node.text.split(' ').slice(0, 5).join('-').toLowerCase().replace(/[^a-z-]/gi, '')
-    var id = `text-${index}-${segment}`
+    var id = `text-${state.params.page}-${index}-${segment}`
 
     return state.cache(Intersector, id).render(function (props) {
       switch (type) {
