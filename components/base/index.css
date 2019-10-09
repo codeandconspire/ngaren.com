@@ -3,6 +3,31 @@
 @import "./utilities";
 
 /**
+ * Font declaration
+ */
+
+ @font-face {
+  font-family: "Font";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./fonts/pg-bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Font";
+  font-style: normal;
+  font-weight: 600;
+  src: url("./fonts/pg-medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Font";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./fonts/pg-book.woff") format("woff");
+}
+
+/**
  * Document styles
  * 1. Global box sizing
  * 2. Guard for horizontal scrolling

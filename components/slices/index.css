@@ -3,7 +3,7 @@
 /* @define Slice */
 .Slice {
   margin: 1.3em 0;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 @media (min-width: 600px) {
@@ -112,6 +112,11 @@
 
 .Slice--small {
   font-size: var(--document-font-size-small);
+  font-weight: 400;
+}
+
+.Slice--small strong {
+  font-weight: 600;
 }
 
 .Slice--small h1,
@@ -213,12 +218,7 @@
 
 .Slice--person .Slice-body {
   max-width: 100%;
-  font-weight: 400;
   margin: 2.2em 0;
-}
-
-.Slice--person strong {
-  font-weight: 600;
 }
 
 @media (min-width: 600px) {
@@ -271,6 +271,7 @@
 
 .Slice-caption {
   font-size: 1rem;
+  font-weight: 400;
   margin: 1.5rem 0 0rem 0;
 }
 

@@ -10,7 +10,7 @@
   text-transform: uppercase;
   font-size: 0.84375rem;
   margin: 1.7rem 0 0.5rem;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -23,6 +23,8 @@
 
 .Header-symbol--decorative {
   display: block;
+  position: relative;
+  left: 1.1%;
 }
 
 .Header path {
