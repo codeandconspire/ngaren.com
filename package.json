@@ -28,7 +28,7 @@
     "parser": "babel-eslint"
   },
   "now": {
-    "alias": "ngaren.conspire.dev",
+    "alias": "www.ngaren.org",
     "env": {
       "NODE_ENV": "production",
       "CLOUDINARY_KEY": "@cloudinary-key",
