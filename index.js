@@ -3,7 +3,7 @@ var app = choo()
 
 app.state.origin = process.env.NODE_ENV === 'development'
   ? 'http://localhost:8080'
-  : `https://${process.env.npm_package_now_alias}`
+  : process.env.npm_package_now_alias
 
 if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
   app.use(require('choo-devtools')())
