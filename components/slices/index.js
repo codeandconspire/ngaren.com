@@ -135,7 +135,6 @@ function slices (slice, index, list, state) {
                   return html`
                     <figure id="${props.id}" class="Slice-figure Slice-figure--mask ${props.class}" style="--aspect: 108%;">
                       <img style="max-width: 100%; height: auto;" ${attrs} src="${src(slice.primary.image.url, 640)}" />
-                      ${state.cache(Loop, 'hero').render()}
                       ${mask('Slice-mask')}
                     </figure>
                   `
