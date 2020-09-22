@@ -54,6 +54,9 @@ module.exports = class Header extends Component {
               ${link({ href: '/donate', route: 'donate' }, html`<span class="Header-label">Donate</span>`)}
             </li>
             <li>
+              ${link({ href: '/exhibitions', route: 'exhibitions' }, html`<span class="Header-label">Exhibitions</span>`)}
+            </li>
+            <li>
               ${link({ href: '/contact', route: 'contact' }, html`<span class="Header-label">Contact</span>`)}
             </li>
           </ul>
