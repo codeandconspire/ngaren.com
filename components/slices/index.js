@@ -41,6 +41,18 @@ function slices (slice, index, list, state) {
     case 'space': {
       return html`<div class="Slice Slice--space" id="slice-${index}"></div>`
     }
+    case 'donate': {
+      return html`
+        <div class="u-container" id="slice-${index}">
+          <div class="u-padded">
+            <div class="Slice Slice--text">
+              <script src="https://donorbox.org/widget.js" paypalExpress="true"></script>
+              <iframe allowpaymentrequest="" frameborder="0" height="900px" name="donorbox" scrolling="no" seamless="seamless" src="https://donorbox.org/embed/ngaren?default_interval=m&amount=50&show_content=true" style="max-width: 100%; min-width: 100%; max-height:none!important" width="100%"></iframe>
+            </div>
+          </div>
+        </div>
+      `
+    }
     case 'line': {
       return html`
         <div class="u-container" id="slice-${index}">
