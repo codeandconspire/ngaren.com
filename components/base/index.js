@@ -28,8 +28,8 @@ function src (uri, size) {
   var transforms = `c_fill,f_auto,${q}`
 
   // trim prismic domain from uri
-  var parts = uri.split('ngaren.cdn.prismic.io/ngaren/')
-  uri = parts[parts.length - 1]
+  var parts = uri.split('images.prismic.io/ngaren/')
+  uri = encodeURIComponent(parts[parts.length - 1])
 
   return `/media/fetch/${transforms ? transforms + ',' : ''}w_${size}/${uri}`
 }
