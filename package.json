@@ -45,7 +45,7 @@
     "choo-meta": "^2.0.0",
     "choo-service-worker": "^3.0.0",
     "cloudinary": "^1.13.2",
-    "cross-fetch": "^3.0.4",
+    "cross-fetch": "^3.1.5",
     "dotenv": "^6.2.0",
     "jalla": "^1.0.0-13",
     "koa-body": "^4.0.8",
