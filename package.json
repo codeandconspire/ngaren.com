@@ -47,7 +47,7 @@
     "cloudinary": "^1.13.2",
     "cross-fetch": "^3.0.4",
     "dotenv": "^6.2.0",
-    "jalla": "^1.0.0-13",
+    "jalla": "^1.0.0-40",
     "koa-body": "^4.0.8",
     "koa-compose": "^4.1.0",
     "koa-route": "^3.2.0",
